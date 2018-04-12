@@ -3,7 +3,6 @@ package com.dnu.loi.smartrm.ui.tablemap;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.Html;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
@@ -12,13 +11,13 @@ import android.widget.TextView;
 import com.dnu.loi.smartrm.R;
 import com.dnu.loi.smartrm.custom.EditTextClearAble;
 import com.dnu.loi.smartrm.obj.Table;
-import com.dnu.loi.smartrm.ui.base.FragmentBase;
+import com.dnu.loi.smartrm.ui.base.BaseFragment;
 import com.dnu.loi.smartrm.utils.UIHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TableMapFragment extends FragmentBase implements ITableView {
+public class TableMapFragment extends BaseFragment implements ITableView {
 
     private TextView tvFloorFilter;
 
@@ -26,7 +25,7 @@ public class TableMapFragment extends FragmentBase implements ITableView {
 
     private EditTextClearAble etTableSearch;
 
-    private AdapterTableList mAdapter;
+    private AdapterTableListRecyclerViewAdapter mAdapter;
 
     @Override
     protected int getLayoutInflate() {
@@ -75,7 +74,7 @@ public class TableMapFragment extends FragmentBase implements ITableView {
         }
 
 
-        mAdapter = new AdapterTableList(tables);
+        mAdapter = new AdapterTableListRecyclerViewAdapter(tables);
         mAdapter.setOnItemClickedListener((view, table) -> {
             try {
                 //todo

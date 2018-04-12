@@ -6,11 +6,11 @@ package com.dnu.loi.smartrm.ui.base;
  * Created by loi on 29/03/2018.
  */
 
-public abstract class PresenterBase<View extends MVPView> {
+public abstract class BasePresenter<View extends MVPView> {
 
     View view;
 
-    public PresenterBase(View view) {
+    public BasePresenter(View view) {
         this.view = view;
     }
 

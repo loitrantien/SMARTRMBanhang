@@ -1,19 +1,33 @@
 package com.dnu.loi.smartrm.obj;
 import com.dnu.loi.smartrm.database.DatabaseColumn;
+import com.dnu.loi.smartrm.database.DatabaseTable;
 
 /**
  * Mô tả:
  * <p>
  * Created by loi on 07/04/2018.
  */
-
+@DatabaseTable(TableName = "OrderDetail")
 public class OrderDetail {
     @DatabaseColumn(columnName = "orderId", isPrimaryKey = true)
     private String orderId;
-    @DatabaseColumn(columnName = "orderId", isPrimaryKey = true, isEnableCustom = true, classCustom = String.class)
+
+    @DatabaseColumn(columnName = "dishesId", isPrimaryKey = true)
+    private String dishesId;
+
+    @DatabaseColumn(columnName = "dishesNameId", isPrimaryKey = true, isEnableCustom = true, classCustom = String.class)
     private String dishesName;
+
     @DatabaseColumn(columnName = "amount")
     private int amount;
+
+    public String getDishesId() {
+        return dishesId;
+    }
+
+    public void setDishesId(String dishesId) {
+        this.dishesId = dishesId;
+    }
 
     public String getOrderId() {
         return orderId;

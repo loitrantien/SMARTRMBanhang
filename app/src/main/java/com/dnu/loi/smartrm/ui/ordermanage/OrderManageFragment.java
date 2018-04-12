@@ -3,17 +3,16 @@ package com.dnu.loi.smartrm.ui.ordermanage;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Adapter;
 
 import com.dnu.loi.smartrm.R;
 import com.dnu.loi.smartrm.obj.Order;
 import com.dnu.loi.smartrm.obj.OrderDetail;
-import com.dnu.loi.smartrm.ui.base.FragmentBase;
+import com.dnu.loi.smartrm.ui.base.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderManageFragment extends FragmentBase {
+public class OrderManageFragment extends BaseFragment {
 
     private RecyclerView mRecyclerView;
 

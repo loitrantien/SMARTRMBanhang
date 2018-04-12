@@ -7,13 +7,13 @@ import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 
 import com.dnu.loi.smartrm.R;
-import com.dnu.loi.smartrm.ui.base.ActivityBase;
+import com.dnu.loi.smartrm.ui.base.BaseActivity;
 import com.dnu.loi.smartrm.ui.more.MoreFragment;
 import com.dnu.loi.smartrm.ui.notifications.NotificationsFragment;
 import com.dnu.loi.smartrm.ui.order.OrderFragment;
 import com.dnu.loi.smartrm.ui.tablemap.TableMapFragment;
 
-public class MainActivity extends ActivityBase implements BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener, MainPagerAdapter.IOnInitPageItem {
+public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener, MainPagerAdapter.IOnInitPageItem {
 
     private ViewPager mPager;
     private BottomNavigationView navigation;

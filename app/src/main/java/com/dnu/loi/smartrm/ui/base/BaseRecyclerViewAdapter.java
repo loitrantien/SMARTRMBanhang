@@ -13,13 +13,13 @@ import java.util.List;
  * Created by loi on 29/03/2018.
  */
 
-public abstract class RecyclerViewAdapterBase<Item, ViewHolder extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<ViewHolder> {
+public abstract class BaseRecyclerViewAdapter<Item, ViewHolder extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<ViewHolder> {
 
     private List<Item> mMainList;
 
     protected OnItemClickedListener<Item> mListener;
 
-    public RecyclerViewAdapterBase(List<Item> mMainList) {
+    public BaseRecyclerViewAdapter(List<Item> mMainList) {
         this.mMainList = mMainList;
     }
 

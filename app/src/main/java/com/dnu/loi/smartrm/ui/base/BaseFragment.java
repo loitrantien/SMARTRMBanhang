@@ -14,7 +14,7 @@ import android.view.ViewGroup;
  * Created by loi on 29/03/2018.
  */
 
-public abstract class FragmentBase extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
 
     @Override

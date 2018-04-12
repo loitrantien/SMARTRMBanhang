@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/space_small"
+    android:background="@drawable/bg_white_radius_3dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="@dimen/view_size_50dp"
+        android:layout_height="@dimen/view_size_50dp"
+        android:id="@+id/ivDishesImage"
+        android:src="@drawable/ic_checkbox_selected" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvDishesName"
+        android:layout_marginLeft="@dimen/space_normal"
+        android:textColor="@color/colorPrimaryDark"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="@dimen/font_large"
+        app:layout_constraintBottom_toTopOf="@id/tvDishesPrice"
+        app:layout_constraintTop_toTopOf="@id/ivDishesImage"
+        app:layout_constraintLeft_toRightOf="@id/ivDishesImage"
+        android:text="Sườn xào chua ngọt" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvDishesPrice"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/font_normal"
+        app:layout_constraintLeft_toLeftOf="@id/tvDishesName"
+        app:layout_constraintLeft_toRightOf="@id/ivDishesImage"
+        app:layout_constraintTop_toBottomOf="@id/tvDishesName"
+        app:layout_constraintBottom_toBottomOf="@id/ivDishesImage"
+        android:text="80.000" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/llDishesSelect"
+        android:visibility="gone"
+        android:background="@drawable/sl_dark_tran"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="@dimen/view_size_50dp"
+            android:layout_height="@dimen/view_size_50dp"
+            android:id="@+id/ivDishesSelect"
+            android:src="@drawable/ic_checkbox_selected" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/ivMinus"
+            android:layout_width="@dimen/view_size_30dp"
+            android:layout_height="@dimen/view_size_30dp"
+            android:src="@drawable/sl_minus"
+            android:layout_margin="@dimen/space_normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/view_size_30dp"
+            android:background="@drawable/sl_white_gray_radius_3dp"
+            android:gravity="center"
+            android:minWidth="@dimen/view_size_30dp"
+            android:id="@+id/tvAmount"
+            android:textSize="@dimen/font_large"
+            android:textColor="@color/colorBlack" />
+
+        <ImageView
+            android:id="@+id/ivPlus"
+            android:layout_width="@dimen/view_size_30dp"
+            android:layout_height="@dimen/view_size_30dp"
+            android:src="@drawable/sl_plus"
+            android:layout_margin="@dimen/space_normal" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

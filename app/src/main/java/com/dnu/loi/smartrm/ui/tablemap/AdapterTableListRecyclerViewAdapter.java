@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.dnu.loi.smartrm.R;
 import com.dnu.loi.smartrm.obj.Table;
-import com.dnu.loi.smartrm.ui.base.RecyclerViewAdapterBase;
+import com.dnu.loi.smartrm.ui.base.BaseRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,13 +19,13 @@ import java.util.List;
  * Created by loi on 07/04/2018.
  */
 
-public class AdapterTableList extends RecyclerViewAdapterBase<Table, AdapterTableList.ViewHolder> {
+public class AdapterTableListRecyclerViewAdapter extends BaseRecyclerViewAdapter<Table, AdapterTableListRecyclerViewAdapter.ViewHolder> {
 
     private List<Table> mSearchList = new ArrayList<>();
 
     private boolean isSearch;
 
-    public AdapterTableList(List<Table> mList) {
+    public AdapterTableListRecyclerViewAdapter(List<Table> mList) {
         super(mList);
     }
 

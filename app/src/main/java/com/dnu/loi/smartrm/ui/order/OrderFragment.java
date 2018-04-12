@@ -7,12 +7,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.dnu.loi.smartrm.R;
-import com.dnu.loi.smartrm.ui.base.FragmentBase;
+import com.dnu.loi.smartrm.ui.base.BaseFragment;
 import com.dnu.loi.smartrm.ui.orderdetail.OrderDetailFragment;
 import com.dnu.loi.smartrm.ui.ordermanage.OrderManageFragment;
 
 
-public class OrderFragment extends FragmentBase implements View.OnClickListener {
+public class OrderFragment extends BaseFragment implements View.OnClickListener {
 
     private TextView tvOrderManage, tvOrderDetail;
 

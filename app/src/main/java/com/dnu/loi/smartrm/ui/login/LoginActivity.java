@@ -10,13 +10,13 @@ import android.widget.TextView;
 
 import com.dnu.loi.smartrm.R;
 import com.dnu.loi.smartrm.custom.EditTextClearAble;
-import com.dnu.loi.smartrm.ui.base.ActivityBase;
+import com.dnu.loi.smartrm.ui.base.BaseActivity;
 import com.dnu.loi.smartrm.ui.main.MainActivity;
 import com.dnu.loi.smartrm.utils.CommonApp;
 import com.dnu.loi.smartrm.utils.ScreenApp;
 import com.dnu.loi.smartrm.utils.UIHelper;
 
-public class LoginActivity extends ActivityBase implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView btnLogin, btnConnectOnline, btnConnectOffline;
 

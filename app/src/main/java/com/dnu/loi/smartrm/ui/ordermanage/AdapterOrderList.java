@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.dnu.loi.smartrm.R;
 import com.dnu.loi.smartrm.obj.Order;
-import com.dnu.loi.smartrm.ui.base.RecyclerViewAdapterBase;
+import com.dnu.loi.smartrm.ui.base.BaseRecyclerViewAdapter;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import java.util.List;
  * Created by loi on 07/04/2018.
  */
 
-public class AdapterOrderList extends RecyclerViewAdapterBase<Order, AdapterOrderList.ViewHolder> {
+public class AdapterOrderList extends BaseRecyclerViewAdapter<Order, AdapterOrderList.ViewHolder> {
 
     public AdapterOrderList(List<Order> mMainList) {
         super(mMainList);
