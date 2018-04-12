@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_selected="true">
+        <bitmap android:src="@drawable/ic_2_square_booking_10"/>
+    </item>
+    <item android:state_selected="false">
+        <bitmap android:src="@drawable/ic_2_square_serving_10"/>
+    </item>
+</selector>

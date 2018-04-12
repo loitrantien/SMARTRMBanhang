@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/space_small"
+    android:id="@+id/cslTableItem"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <ImageView
+        android:id="@+id/ivTableImage"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_size_80dp"
+        android:src="@drawable/sl_square_four" />
+
+    <TextView
+        android:layout_width="@dimen/view_size_30dp"
+        android:layout_height="@dimen/view_size_30dp"
+        android:background="@drawable/bg_circle_blue"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="@id/ivTableImage"
+        app:layout_constraintEnd_toEndOf="@id/ivTableImage"
+        app:layout_constraintStart_toStartOf="@id/ivTableImage"
+        app:layout_constraintBottom_toBottomOf="@id/ivTableImage"
+        android:padding="@dimen/space_small"
+        android:text="12"
+        android:textStyle="bold"
+        android:id="@+id/tvTableNum"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_normal" />
+
+</android.support.constraint.ConstraintLayout>

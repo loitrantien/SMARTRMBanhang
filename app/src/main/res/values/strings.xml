@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">SMARTRM - Bán hàng</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="login">Đăng nhập</string>
+    <string name="domain_online">Ma nha hang</string>
+    <string name="domain_offline">192.168.1.1</string>
+    <string name="user_name">Tên đăng nhập</string>
+    <string name="password">mật khẩu</string>
+
+    <string name="order">ORDER</string>
+    <string name="map">SƠ ĐỒ</string>
+    <string name="folow">THEO DÕI</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="nav_order">order</string>
+    <string name="nav_map">Sơ đồ</string>
+    <string name="nav_more">Thêm</string>
+    <string name="nav_notifications">Thông báo</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="table_num">Tìm kiếm theo số bàn</string>
+    <string name="network_error">Không có kết nối internet. Vui lòng bật 3G/4G hoặc WIFI trước.</string>
+    <string name="cancel">hủy</string>
+    <string name="take_monney">thu tiền</string>
+</resources>

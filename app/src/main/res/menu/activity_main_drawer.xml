@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_sale"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Tu van ban hang" />
+        <item
+            android:id="@+id/nav_order"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Danh sach order" />
+        <item
+            android:id="@+id/nav_map"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="So do nha hang" />
+
+        <item
+            android:id="@+id/nav_promotion"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Quan ly kuyen mai" />
+
+        <item
+            android:id="@+id/nav_suggest"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Gop y nha phat trien" />
+
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Thiet dat" />
+
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Dang xuat" />
+    </group>
+</menu>

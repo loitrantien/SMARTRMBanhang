@@ -1,0 +1,33 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">120dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="font_small">13sp</dimen>
+    <dimen name="font_normal">15sp</dimen>
+    <dimen name="font_large">18sp</dimen>
+    <dimen name="font_huge">20sp</dimen>
+    <dimen name="space_tiny">3dp</dimen>
+    <dimen name="space_small">5dp</dimen>
+    <dimen name="space_normal">10dp</dimen>
+    <dimen name="space_large">15dp</dimen>
+    <dimen name="space_huge">20dp</dimen>
+    <dimen name="view_size_small">30dp</dimen>
+    <dimen name="toolBarSize">50dp</dimen>
+    <dimen name="view_size_120dp">120dp</dimen>
+    <dimen name="view_size_50dp">50dp</dimen>
+    <dimen name="view_size_100dp">100dp</dimen>
+    <dimen name="view_size_40dp">40dp</dimen>
+    <dimen name="view_size_80dp">80dp</dimen>
+    <dimen name="view_size_30dp">30dp</dimen>
+    <dimen name="font_50">50sp</dimen>
+    <dimen name="font_25sp">25sp</dimen>
+    <dimen name="font_30sp">30sp</dimen>
+    <dimen name="view_size_60dp">60dp</dimen>
+    <dimen name="font_40">40sp</dimen>
+    <dimen name="view_size_20dp">20dp</dimen>
+    <dimen name="view_size_15dp">15dp</dimen>
+    <dimen name="font_30">30sp</dimen>
+</resources>
