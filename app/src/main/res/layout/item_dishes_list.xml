@@ -7,9 +7,14 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_width="@dimen/view_size_50dp"
-        android:layout_height="@dimen/view_size_50dp"
+        android:layout_width="@dimen/view_size_60dp"
+        android:layout_height= "@dimen/view_size_60dp"
         android:id="@+id/ivDishesImage"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:scaleType="fitXY"
+        android:layout_margin="@dimen/space_normal"
         android:src="@drawable/ic_checkbox_selected" />
 
     <TextView
@@ -39,6 +44,7 @@
         android:text="80.000" />
 
     <LinearLayout
+        android:padding="@dimen/space_normal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/llDishesSelect"
@@ -46,8 +52,8 @@
         android:background="@drawable/sl_dark_tran"
         android:gravity="center">
         <ImageView
-            android:layout_width="@dimen/view_size_50dp"
-            android:layout_height="@dimen/view_size_50dp"
+            android:layout_width="@dimen/view_size_60dp"
+            android:layout_height= "@dimen/view_size_60dp"
             android:id="@+id/ivDishesSelect"
             android:src="@drawable/ic_checkbox_selected" />
         <View
@@ -57,25 +63,25 @@
 
         <ImageView
             android:id="@+id/ivMinus"
-            android:layout_width="@dimen/view_size_30dp"
-            android:layout_height="@dimen/view_size_30dp"
+            android:layout_width="@dimen/view_size_40dp"
+            android:layout_height="@dimen/view_size_40dp"
             android:src="@drawable/sl_minus"
             android:layout_margin="@dimen/space_normal" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/view_size_30dp"
+            android:layout_height="@dimen/view_size_40dp"
             android:background="@drawable/sl_white_gray_radius_3dp"
             android:gravity="center"
-            android:minWidth="@dimen/view_size_30dp"
+            android:minWidth="@dimen/view_size_40dp"
             android:id="@+id/tvAmount"
             android:textSize="@dimen/font_large"
             android:textColor="@color/colorBlack" />
 
         <ImageView
             android:id="@+id/ivPlus"
-            android:layout_width="@dimen/view_size_30dp"
-            android:layout_height="@dimen/view_size_30dp"
+            android:layout_width="@dimen/view_size_40dp"
+            android:layout_height="@dimen/view_size_40dp"
             android:src="@drawable/sl_plus"
             android:layout_margin="@dimen/space_normal" />
     </LinearLayout>

@@ -1,4 +1,4 @@
-package com.dnu.loi.smartrm.ui.orderdetail;
+package com.dnu.loi.smartrm.ui.choosedishes;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -30,7 +30,7 @@ public class AdapterDishesList extends BaseRecyclerViewAdapter<Dishes, AdapterDi
 
     @Override
     protected int getLayoutResourceItem() {
-        return R.layout.item_order_detail;
+        return R.layout.item_dishes_list;
     }
 
     @Override
@@ -58,7 +58,8 @@ public class AdapterDishesList extends BaseRecyclerViewAdapter<Dishes, AdapterDi
 
         holder.ivDishesImage.setOnClickListener((view) -> {
             holder.llDishesSelected.setVisibility(View.VISIBLE);
-            holder.tvAmount.setText("1");
+            dishes.setAmount(1);
+            holder.tvAmount.setText(String.valueOf(dishes.getAmount()));
             dishes.setSelected(true);
         });
 
@@ -66,21 +67,28 @@ public class AdapterDishesList extends BaseRecyclerViewAdapter<Dishes, AdapterDi
             holder.llDishesSelected.setVisibility(View.GONE);
             holder.tvAmount.setText("1");
             dishes.setSelected(false);
+            dishes.setAmount(0);
         });
 
         holder.llDishesSelected.setOnClickListener((view) -> {
-            holder.tvAmount.setText(String.valueOf(dishes.getAmount() + 1));
+            int newAmount = dishes.getAmount() + 1;
+            dishes.setAmount(newAmount);
+            holder.tvAmount.setText(String.valueOf(newAmount));
         });
 
         holder.ivMinus.setOnClickListener((view) -> {
-            if (dishes.getAmount() > 0)
-                holder.tvAmount.setText(String.valueOf(dishes.getAmount() - 1));
-            else
+            if (dishes.getAmount() > 1) {
+                int newAmount = dishes.getAmount() - 1;
+                dishes.setAmount(newAmount);
+                holder.tvAmount.setText(String.valueOf(newAmount));
+            }else
                 holder.ivDishesSelected.performClick();
         });
 
         holder.ivPlus.setOnClickListener((view) -> {
-            holder.tvAmount.setText(String.valueOf(dishes.getAmount() + 1));
+            int newAmount = dishes.getAmount() + 1;
+            dishes.setAmount(newAmount);
+            holder.tvAmount.setText(String.valueOf(newAmount));
         });
     }
 

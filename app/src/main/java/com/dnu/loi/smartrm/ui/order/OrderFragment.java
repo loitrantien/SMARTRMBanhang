@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.dnu.loi.smartrm.R;
 import com.dnu.loi.smartrm.ui.base.BaseFragment;
-import com.dnu.loi.smartrm.ui.orderdetail.OrderDetailFragment;
+import com.dnu.loi.smartrm.ui.choosedishes.ChooseDishesFragment;
 import com.dnu.loi.smartrm.ui.ordermanage.OrderManageFragment;
 
 
@@ -78,7 +78,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
         if (isOrderManage) {
             fragment = new OrderManageFragment();
         } else {
-            fragment = new OrderDetailFragment();
+            fragment = new ChooseDishesFragment();
         }
         switchContent(fragment);
     }
