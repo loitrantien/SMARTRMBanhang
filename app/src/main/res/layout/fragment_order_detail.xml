@@ -1,6 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray"
+    android:padding="@dimen/space_normal">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:padding="@dimen/space_normal">
+
+            <TextView
+                android:id="@+id/tvBillTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/view_size_20dp"
+                android:text="Hóa đơn"
+                android:textAllCaps="true"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/font_huge"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvBillNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số: "
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/font_normal"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBillTitle" />
+
+            <TextView
+                android:id="@+id/tvTableNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small"
+                android:text="Bàn: "
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/font_normal"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBillNum" />
+
+            <TextView
+                android:id="@+id/tvBillDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small"
+                android:text="Ngày: "
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/font_normal"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTableNum" />
+
+            <LinearLayout
+                android:id="@+id/llTableTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small"
+                android:background="@drawable/bg_border_gray"
+                android:padding="@dimen/space_small"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBillDate">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Tên hàng"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/font_normal"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="SL"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/font_normal"
+                    android:textStyle="bold"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Đơn giá"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/font_normal"
+                    android:textStyle="bold"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Thành tiền"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/font_normal"
+                    android:textStyle="bold"
+
+                    />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcvDishesList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_border_gray"
+                android:padding="@dimen/space_small"
+                app:layout_constraintTop_toBottomOf="@id/llTableTitle" />
+
+            <TextView
+                android:id="@+id/tvTotalTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small"
+                android:text="Số tiền phải trả: "
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/font_normal"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rcvDishesList" />
+
+            <TextView
+                android:id="@+id/tvTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8000"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvTotalTitle"
+                android:textSize="@dimen/font_small"
+                />
+
+            <TextView
+                android:id="@+id/tvMoneyPayTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small"
+                android:text="Số tiền khách đưa: "
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/font_normal"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTotalTitle" />
+
+            <TextView
+                android:id="@+id/tvMoneyPay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="9000"
+                app:layout_constraintTop_toTopOf="@id/tvMoneyPayTitle"
+                android:textSize="@dimen/font_small"
+                />
+
+            <TextView
+                android:id="@+id/tvReturnTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small"
+                android:text="Số tiền trả lại khách: "
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/font_normal"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvMoneyPayTitle" />
+
+            <TextView
+                android:id="@+id/tvMoneyReturn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1000"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvReturnTitle"
+                android:textSize="@dimen/font_small"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_huge"
+                app:layout_constraintTop_toBottomOf="@id/tvReturnTitle"
+                />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

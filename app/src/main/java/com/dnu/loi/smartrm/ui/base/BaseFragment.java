@@ -45,10 +45,26 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract int getLayoutInflate();
 
+    /**
+     * Phương thức ánh xạ view
+     *
+     * @param view @null
+     * @Created_by TTLoi on 29/03/2018.
+     */
     protected abstract void mappingView(View view);
 
+    /**
+     * Phương thức bingding view
+     *
+     * @Created_by TTLoi on 15/04/2018
+     */
     protected abstract void onBindView();
 
+    /**
+     *Phương thức gán sự kiện cho v
+     * iew
+     *@Created_by TTLoi on 15/04/2018
+     */
     protected abstract void setViewEvent();
 
     protected abstract void onViewAttach();
