@@ -3,6 +3,8 @@ package com.dnu.loi.smartrm.obj;
 import com.dnu.loi.smartrm.database.DatabaseColumn;
 import com.dnu.loi.smartrm.database.DatabaseTable;
 
+import java.io.Serializable;
+
 /**
  * Mô tả: class đối tượng món ăn
  * <p>
@@ -10,7 +12,7 @@ import com.dnu.loi.smartrm.database.DatabaseTable;
  */
 
 @DatabaseTable(TableName = "Dishes")
-public class Dishes {
+public class Dishes implements Serializable {
     @DatabaseColumn(columnName = "id")
     private String id;
 
@@ -23,6 +25,8 @@ public class Dishes {
     private int amount;
 
     private boolean isSelected;
+
+    private String image;
 
     public String getId() {
         return id;
@@ -62,5 +66,9 @@ public class Dishes {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public String getImage() {
+        return image;
     }
 }

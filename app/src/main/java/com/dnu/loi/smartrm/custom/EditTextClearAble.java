@@ -50,7 +50,7 @@ public class EditTextClearAble extends LinearLayout {
         ivLeftDrawable = root.findViewById(R.id.ivLeftDrawable);
         etContent = root.findViewById(R.id.etContent);
 
-        //set thuộc tính của view từ file xml
+        //set thuộc tính của mView từ file xml
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.EditTextClearAble, 0, 0);
 

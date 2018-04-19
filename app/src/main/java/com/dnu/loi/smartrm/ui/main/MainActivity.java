@@ -10,7 +10,7 @@ import com.dnu.loi.smartrm.R;
 import com.dnu.loi.smartrm.ui.base.BaseActivity;
 import com.dnu.loi.smartrm.ui.more.MoreFragment;
 import com.dnu.loi.smartrm.ui.notifications.NotificationsFragment;
-import com.dnu.loi.smartrm.ui.order.OrderFragment;
+import com.dnu.loi.smartrm.ui.ordermanage.OrderManageFragment;
 import com.dnu.loi.smartrm.ui.tablemap.TableMapFragment;
 
 public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener, MainPagerAdapter.IOnInitPageItem {
@@ -27,6 +27,11 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     protected void mappingView() {
         navigation = findViewById(R.id.navigation);
         mPager = findViewById(R.id.vpgMain);
+
+    }
+
+    @Override
+    protected void onBindView() {
 
     }
 
@@ -106,7 +111,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
 
         switch (position){
             case 0:
-                fragment=new OrderFragment();
+                fragment=new OrderManageFragment();
                 break;
             case 1:
                 fragment = new TableMapFragment();

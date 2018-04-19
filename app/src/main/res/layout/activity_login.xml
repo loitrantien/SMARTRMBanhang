@@ -35,7 +35,7 @@
                 android:gravity="center"
                 android:text="@string/app_name"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/font_huge"
+                android:textSize="@dimen/font_50"
                 android:textStyle="bold|italic" />
 
             <LinearLayout
@@ -58,26 +58,12 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/bg_btn_connect"
-                        android:drawableLeft="@drawable/selector_link"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/space_small"
-                        android:text="kết nối online"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/font_small"
+                        android:gravity="center"
+                        android:padding="@dimen/space_normal"
+                        android:text="Dành cho nhân viên bán hàng"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/font_huge"
                         android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvConnectOffline"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_btn_connect"
-                        android:drawableLeft="@drawable/selector_ip"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/space_small"
-                        android:text="Kết nối offline"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/font_small" />
 
                 </LinearLayout>
 

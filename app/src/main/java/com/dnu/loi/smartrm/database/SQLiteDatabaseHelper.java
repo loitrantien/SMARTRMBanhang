@@ -4,17 +4,18 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import static com.dnu.loi.smartrm.common.CommonApp.DATABASE_NAME;
+
 public class SQLiteDatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "mydb";
-    private static SQLiteDatabaseHelper DATABASE_SINGLETON = null;
+    private static SQLiteDatabaseHelper DATABASE_SINGLETON;
 
     private SQLiteDatabaseHelper(Context paramContext) {
-        super(paramContext, "mydb", null, 1);
+        super(paramContext, DATABASE_NAME, null, 1);
     }
 
-    public static SQLiteDatabaseHelper getInstance(Context paramContext) {
+    static SQLiteDatabaseHelper getInstance(Context paramContext) {
         if (DATABASE_SINGLETON == null) {
-            return new SQLiteDatabaseHelper(paramContext);
+            DATABASE_SINGLETON = new SQLiteDatabaseHelper(paramContext);
         }
         return DATABASE_SINGLETON;
     }

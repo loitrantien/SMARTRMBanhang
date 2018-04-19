@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SMARTRM - Bán hàng</string>
+    <string name="app_name">SMARTRM</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -29,4 +29,16 @@
     <string name="network_error">Không có kết nối internet. Vui lòng bật 3G/4G hoặc WIFI trước.</string>
     <string name="cancel">hủy</string>
     <string name="take_monney">thu tiền</string>
+    <string name="done">Xong</string>
+    <string name="on_table_load_error">Có lỗi xảy ra xin thử lại sau</string>
+    <string name="on_floor_load_error">Có lỗi xảy ra xin thử lại sau</string>
+    <string name="about">Thông tin sản phẩm</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="share">Chia sẻ với bạn bè</string>
+    <string name="feedback">Góp ý với nhà phát triển</string>
+    <string name="bill_manage">Quản lý hóa đơn</string>
+    <string name="settings">Thiết đặt</string>
+    <string name="menu">Thực đơn</string>
+    <string name="somthing_wrong">Có lỗi xảy ra xin thử lại sau</string>
+    <string name="save_order_success">Lưu order thành công</string>
 </resources>

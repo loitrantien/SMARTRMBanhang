@@ -1,0 +1,100 @@
+package com.dnu.loi.smartrm.ui.tablemap;
+
+import com.dnu.loi.smartrm.R;
+import com.dnu.loi.smartrm.bl.tablemap.ITableMapBL;
+import com.dnu.loi.smartrm.obj.Floor;
+import com.dnu.loi.smartrm.obj.Table;
+import com.dnu.loi.smartrm.ui.base.BasePresenter;
+import com.dnu.loi.smartrm.ui.base.IBaseBL;
+import com.dnu.loi.smartrm.utils.ExceptionHelper;
+import com.dnu.loi.smartrm.utils.UIHelper;
+
+import java.util.List;
+
+/**
+ * Mô tả:
+ * <p>
+ * Created by loi on 18/04/2018.
+ */
+
+public class TableMapPresenter extends BasePresenter<ITableMapView> implements ITableMapPresenter {
+
+    private static final String INIT_TABLE_MAP_TAG = "TableMapPresenter#initTableMap";
+    private static final String LOAD_TABLE_BY_FLOOR_TAG = "TableMapPresenter#loadTablesByFloor";
+    private static final String LOAD_ALL_FLOOR_TAG = "TableMapPresenter#loadAllFloor";
+    private ITableMapBL bl;
+
+    public TableMapPresenter(ITableMapBL bl) {
+        this.bl = bl;
+    }
+
+    @Override
+    public void onViewAttach(ITableMapView view) {
+        mView = view;
+    }
+
+    @Override
+    public void onViewDestroy() {
+        mView = null;
+        bl = null;
+    }
+
+    @Override
+    public void initTableMap() {
+        bl.initTableMap(new IBaseBL.onDataLoaded<List<Table>>() {
+            @Override
+            public void onResponse(List<Table> tables) {
+                getView().setListTable(tables);
+            }
+
+            @Override
+            public void onFailed() {
+                getView().showError(UIHelper.getString(R.string.on_floor_load_error));            }
+
+            @Override
+            public void onException(Exception e) {
+                ExceptionHelper.handlerException(INIT_TABLE_MAP_TAG, e);
+            }
+        });
+    }
+
+    @Override
+    public void loadAllFloor() {
+        bl.loadAllFloor(new IBaseBL.onDataLoaded<List<Floor>>() {
+            @Override
+            public void onResponse(List<Floor> floors) {
+                getView().setListFloor(floors);
+            }
+
+            @Override
+            public void onFailed() {
+                getView().showError(UIHelper.getString(R.string.on_floor_load_error));
+            }
+
+            @Override
+            public void onException(Exception e) {
+                ExceptionHelper.handlerException(LOAD_ALL_FLOOR_TAG, e);
+            }
+        });
+    }
+
+    @Override
+    public void loadTablesByFloor(Floor floor) {
+        bl.loadTablesByFloor(floor, new IBaseBL.onDataLoaded<List<Table>>() {
+            @Override
+            public void onResponse(List<Table> tables) {
+                getView().setListTable(tables);
+            }
+
+            @Override
+            public void onFailed() {
+                getView().showError(UIHelper.getString(R.string.on_floor_load_error));
+            }
+
+            @Override
+            public void onException(Exception e) {
+                ExceptionHelper.handlerException(LOAD_TABLE_BY_FLOOR_TAG, e);
+            }
+        });
+    }
+}

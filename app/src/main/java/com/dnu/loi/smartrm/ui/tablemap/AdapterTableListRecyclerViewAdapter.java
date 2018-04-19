@@ -25,8 +25,8 @@ public class AdapterTableListRecyclerViewAdapter extends BaseRecyclerViewAdapter
 
     private boolean isSearch;
 
-    public AdapterTableListRecyclerViewAdapter(List<Table> mList) {
-        super(mList);
+    public AdapterTableListRecyclerViewAdapter() {
+        super(new ArrayList<>());
     }
 
     @Override

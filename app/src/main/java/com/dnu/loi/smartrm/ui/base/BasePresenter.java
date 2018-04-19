@@ -8,28 +8,15 @@ package com.dnu.loi.smartrm.ui.base;
 
 public abstract class BasePresenter<View extends MVPView> {
 
-    View view;
+    protected View mView;
 
-    public BasePresenter(View view) {
-        this.view = view;
-    }
 
     public View getView() {
-        return view;
+        return mView;
     }
 
-    /**
-     * Phương thức thực hiện khi khởi tạo view
-     *
-     * Created by loi on 3/29/2018
-     */
-    public abstract void onViewAttach();
-
-    /**
-     * Phương thức thực hiện khi destroy view
-     *
-     * Created by loi on 3/29/2018
-     */
-    public abstract void onViewDestroy();
+    public void setView(View mView) {
+        this.mView = mView;
+    }
 
 }

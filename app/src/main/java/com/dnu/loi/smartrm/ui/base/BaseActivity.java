@@ -17,12 +17,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
         mappingView();
+        onBindView();
         setViewEvent();
     }
 
     protected abstract int getLayout();
 
     protected abstract void mappingView();
+
+    protected abstract void onBindView();
 
     protected abstract void setViewEvent();
 

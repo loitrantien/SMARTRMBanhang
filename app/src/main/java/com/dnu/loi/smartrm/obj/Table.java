@@ -2,7 +2,7 @@ package com.dnu.loi.smartrm.obj;
 
 import com.dnu.loi.smartrm.database.DatabaseColumn;
 import com.dnu.loi.smartrm.database.DatabaseTable;
-import com.dnu.loi.smartrm.utils.TableType;
+import com.dnu.loi.smartrm.common.TableType;
 
 /**
  * Mô tả: class mô tả bàn

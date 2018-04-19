@@ -29,4 +29,11 @@ public interface MVPView {
      */
     void showNetworkError();
 
+    /**
+     * Phương thức đưa ra thông báo lỗi khi không có mạng
+     *
+     * Created by loi on 4/7/2018
+     */
+    void showError(String message);
+
 }

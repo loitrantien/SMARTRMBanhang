@@ -1,30 +1,42 @@
 package com.dnu.loi.smartrm.ui.more;
 
-
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.dnu.loi.smartrm.R;
+import com.dnu.loi.smartrm.ui.base.BaseFragment;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class MoreFragment extends Fragment {
+public class MoreFragment extends BaseFragment {
 
-
-    public MoreFragment() {
-        // Required empty public constructor
-    }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_more, container, false);
+    protected int getLayoutInflate() {
+        return R.layout.fragment_more;
+    }
+
+    @Override
+    protected void mappingView(View view) {
+
+    }
+
+    @Override
+    protected void onBindView() {
+
+    }
+
+    @Override
+    protected void setViewEvent() {
+
+    }
+
+    @Override
+    protected void onViewAttach() {
+
+    }
+
+    @Override
+    protected void onViewDestroy() {
+
     }
 
 }

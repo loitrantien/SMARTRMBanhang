@@ -7,8 +7,10 @@
     android:padding="@dimen/space_normal">
 
     <ScrollView
+        android:id="@+id/scrBill"
+        android:layout_marginBottom="@dimen/view_size_80dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -70,9 +72,10 @@
                 android:id="@+id/llTableTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_small"
+                android:layout_marginTop="@dimen/space_normal"
                 android:background="@drawable/bg_border_gray"
                 android:padding="@dimen/space_small"
+                android:weightSum="4"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvBillDate">
@@ -150,10 +153,9 @@
                 android:layout_height="wrap_content"
                 android:text="8000"
                 android:textColor="@color/colorBlack"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvTotalTitle"
                 android:textSize="@dimen/font_small"
-                />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvTotalTitle" />
 
             <TextView
                 android:id="@+id/tvMoneyPayTitle"
@@ -171,12 +173,11 @@
                 android:id="@+id/tvMoneyPay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintRight_toRightOf="parent"
                 android:text="9000"
-                app:layout_constraintTop_toTopOf="@id/tvMoneyPayTitle"
+                android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/font_small"
-                />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvMoneyPayTitle" />
 
             <TextView
                 android:id="@+id/tvReturnTitle"
@@ -196,17 +197,33 @@
                 android:layout_height="wrap_content"
                 android:text="1000"
                 android:textColor="@color/colorBlack"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvReturnTitle"
                 android:textSize="@dimen/font_small"
-                />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvReturnTitle" />
 
             <View
                 android:layout_width="0dp"
-                android:layout_height="@dimen/space_huge"
-                app:layout_constraintTop_toBottomOf="@id/tvReturnTitle"
-                />
+                android:layout_height="@dimen/view_size_80dp"
+                app:layout_constraintTop_toBottomOf="@id/tvReturnTitle" />
+
+
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 
+
+
+    <TextView
+        android:id="@+id/btnDone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_normal"
+        android:background="@drawable/selector_main_revert"
+        android:gravity="center"
+        android:padding="@dimen/space_normal"
+        android:text="@string/done"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_normal"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </android.support.constraint.ConstraintLayout>

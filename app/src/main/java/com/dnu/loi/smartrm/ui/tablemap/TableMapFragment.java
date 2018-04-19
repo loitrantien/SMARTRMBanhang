@@ -9,7 +9,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.dnu.loi.smartrm.R;
+import com.dnu.loi.smartrm.bl.tablemap.TableMapBL;
 import com.dnu.loi.smartrm.custom.EditTextClearAble;
+import com.dnu.loi.smartrm.dl.tablemap.TableMapDL;
+import com.dnu.loi.smartrm.obj.Floor;
 import com.dnu.loi.smartrm.obj.Table;
 import com.dnu.loi.smartrm.ui.base.BaseFragment;
 import com.dnu.loi.smartrm.utils.UIHelper;
@@ -17,7 +20,7 @@ import com.dnu.loi.smartrm.utils.UIHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TableMapFragment extends BaseFragment implements ITableView {
+public class TableMapFragment extends BaseFragment implements ITableMapView {
 
     private TextView tvFloorFilter;
 
@@ -26,6 +29,8 @@ public class TableMapFragment extends BaseFragment implements ITableView {
     private EditTextClearAble etTableSearch;
 
     private AdapterTableListRecyclerViewAdapter mAdapter;
+
+    private ITableMapPresenter mPresenter;
 
     @Override
     protected int getLayoutInflate() {
@@ -42,42 +47,10 @@ public class TableMapFragment extends BaseFragment implements ITableView {
 
     @Override
     protected void onBindView() {
-        List<Table> tables = new ArrayList<>();
-
-        for (int i = 1; i <= 12; i++) {
-
-            Table table1 = new Table();
-            table1.setTableId("axcc");
-            table1.setTableNum(i);
-
-            if (i % 2 == 0) {
-                table1.setSelected(true);
-                table1.setTableType(Integer.parseInt("2" + i));
-            } else {
-                table1.setTableType(Integer.parseInt("2" + (i + 1)));
-            }
-            tables.add(table1);
-        }
-        for (int i = 1; i <= 12; i++) {
-
-            Table table1 = new Table();
-            table1.setTableId("axcc");
-            table1.setTableNum(i);
-
-            if (i % 2 == 0) {
-                table1.setTableType(Integer.parseInt("1" + i));
-            } else {
-                table1.setSelected(true);
-                table1.setTableType(Integer.parseInt("1" + (i + 1)));
-            }
-            tables.add(table1);
-        }
-
-
-        mAdapter = new AdapterTableListRecyclerViewAdapter(tables);
+        mAdapter = new AdapterTableListRecyclerViewAdapter();
         mAdapter.setOnItemClickedListener((view, table) -> {
             try {
-                //todo
+                goToNewOrder(table);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -85,6 +58,7 @@ public class TableMapFragment extends BaseFragment implements ITableView {
         GridLayoutManager manager = new GridLayoutManager(getContext(), 3);
         rcvTableMap.setLayoutManager(manager);
         rcvTableMap.setAdapter(mAdapter);
+        mPresenter.initTableMap();
     }
 
     @Override
@@ -97,7 +71,7 @@ public class TableMapFragment extends BaseFragment implements ITableView {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                mAdapter.searchTable(charSequence.toString());
+                searchTableByName(charSequence.toString());
             }
 
             @Override
@@ -105,27 +79,21 @@ public class TableMapFragment extends BaseFragment implements ITableView {
 
             }
         });
-        tvFloorFilter.setOnClickListener((view) -> showFloorFilter());
+        tvFloorFilter.setOnClickListener((view) -> showListFloor());
     }
 
     @Override
     protected void onViewAttach() {
-
+        mPresenter = new TableMapPresenter(new TableMapBL(new TableMapDL()));
+        mPresenter.onViewAttach(this);
     }
 
     @Override
     protected void onViewDestroy() {
-
+        mPresenter.onViewDestroy();
+        mPresenter = null;
     }
 
-    @Override
-    public void showFloorFilter() {
-        try {
-            //todo
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void showProgressDialog() {
@@ -139,6 +107,37 @@ public class TableMapFragment extends BaseFragment implements ITableView {
 
     @Override
     public void showNetworkError() {
-        UIHelper.ToastShort(getContext(), getString(R.string.network_error));
+        UIHelper.ToastShort(getString(R.string.network_error));
+    }
+
+    @Override
+    public void showError(String message) {
+        UIHelper.ToastShort(message);
+    }
+
+
+    @Override
+    public void setListTable(List<Table> tables) {
+        mAdapter.refresh(tables);
+    }
+
+    @Override
+    public void setListFloor(List<Floor> floors) {
+        //todo
+    }
+
+    @Override
+    public void searchTableByName(String name) {
+        mAdapter.searchTable(name);
+    }
+
+    @Override
+    public void goToNewOrder(Table table) {
+
+    }
+
+    @Override
+    public void showListFloor() {
+
     }
 }

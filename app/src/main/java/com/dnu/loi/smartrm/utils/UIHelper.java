@@ -1,6 +1,7 @@
 package com.dnu.loi.smartrm.utils;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.text.SpannableString;
@@ -9,9 +10,9 @@ import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
 
-import com.dnu.loi.smartrm.R;
+import com.dnu.loi.smartrm.common.CommonApp;
+import com.dnu.loi.smartrm.common.MyApplication;
 
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -23,12 +24,19 @@ import java.util.TimerTask;
 
 public final class UIHelper {
 
-    public static void ToastShort(Context context, String data) {
-        Toast.makeText(context, data, Toast.LENGTH_SHORT).show();
+    public static void ToastShort(String message) {
+        Toast.makeText(MyApplication.getInstance().getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    public static void ToastLong(Context context, String data) {
-        Toast.makeText(context, data, Toast.LENGTH_LONG).show();
+    public static void ToastLong(String message) {
+        Toast.makeText(MyApplication.getInstance().getApplicationContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    public static String getString(int stringRes){
+        return MyApplication.getInstance().getResources().getString(stringRes);
+    }
+    public static String[] getStringArray(int stringArrayRes){
+        return MyApplication.getInstance().getResources().getStringArray(stringArrayRes);
     }
 
     public static void schedule(int DELAY, TimerTask task) {
@@ -64,7 +72,7 @@ public final class UIHelper {
 
     public static SpannableString setSpan(String s, int start, int end, int color) {
         SpannableString spannableString = new SpannableString(s);
-        spannableString.setSpan(new ForegroundColorSpan(CommonApp.CONTEXT.getResources().getColor(color)),
+        spannableString.setSpan(new ForegroundColorSpan(MyApplication.getInstance().getResources().getColor(color)),
                 start,end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
     }

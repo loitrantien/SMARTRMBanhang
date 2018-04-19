@@ -12,15 +12,15 @@ import com.dnu.loi.smartrm.R;
 import com.dnu.loi.smartrm.custom.EditTextClearAble;
 import com.dnu.loi.smartrm.ui.base.BaseActivity;
 import com.dnu.loi.smartrm.ui.main.MainActivity;
-import com.dnu.loi.smartrm.utils.CommonApp;
-import com.dnu.loi.smartrm.utils.ScreenApp;
+import com.dnu.loi.smartrm.common.CommonApp;
+import com.dnu.loi.smartrm.common.ScreenApp;
 import com.dnu.loi.smartrm.utils.UIHelper;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
-    private TextView btnLogin, btnConnectOnline, btnConnectOffline;
+    private TextView btnLogin;
 
-    private LinearLayout llLoging;
+    private LinearLayout llLogin;
 
     private EditTextClearAble etDomain, etUsername, etPassword;
 
@@ -34,22 +34,21 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void mappingView() {
         btnLogin = findViewById(R.id.btnLogin);
-        llLoging = findViewById(R.id.llLogin);
-        btnConnectOnline = findViewById(R.id.tvConnectOnline);
-        btnConnectOffline = findViewById(R.id.tvConnectOffline);
-        btnConnectOnline.setSelected(true);
+        llLogin = findViewById(R.id.llLogin);
         etDomain = findViewById(R.id.etDomain);
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
 
+    }
+
+    @Override
+    protected void onBindView() {
         autoResizeLoginForm();
     }
 
     @Override
     protected void setViewEvent() {
         btnLogin.setOnClickListener(this);
-        btnConnectOnline.setOnClickListener(this);
-        btnConnectOffline.setOnClickListener(this);
     }
 
     @Override
@@ -83,7 +82,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         FrameLayout.LayoutParams params =
                 new FrameLayout.LayoutParams(newWidth,
                         FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.CENTER);
-        llLoging.setLayoutParams(params);
+        llLogin.setLayoutParams(params);
     }
 
     @Override
@@ -93,31 +92,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         switch (id) {
             case R.id.btnLogin:
                 gotoMain();
-                break;
-            case R.id.tvConnectOnline:
-                btnConnectOnline.setSelected(true);
-                btnConnectOffline.setSelected(false);
-                btnConnectOnline.setTextColor(btnConnectOnline.isSelected()
-                        ? getResources().getColor(R.color.colorPrimary) : getResources().getColor(R.color.colorWhite));
-                btnConnectOffline.setTextColor(btnConnectOffline.isSelected()
-                        ? getResources().getColor(R.color.colorPrimary) : getResources().getColor(R.color.colorWhite));
-                btnConnectOnline.setTypeface(btnConnectOnline.isSelected() ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-                btnConnectOffline.setTypeface(btnConnectOffline.isSelected() ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-                etDomain.setHint(btnConnectOnline.isSelected() ? R.string.domain_online : R.string.domain_offline);
-
-
-                break;
-            case R.id.tvConnectOffline:
-                btnConnectOffline.setSelected(true);
-                btnConnectOnline.setSelected(false);
-                btnConnectOffline.setTextColor(btnConnectOffline.isSelected()
-                        ? getResources().getColor(R.color.colorPrimary) : getResources().getColor(R.color.colorWhite));
-                btnConnectOnline.setTextColor(btnConnectOnline.isSelected()
-                        ? getResources().getColor(R.color.colorPrimary) : getResources().getColor(R.color.colorWhite));
-                btnConnectOffline.setTypeface(btnConnectOffline.isSelected() ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-                btnConnectOnline.setTypeface(btnConnectOnline.isSelected() ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-                etDomain.setHint(btnConnectOffline.isSelected() ? R.string.domain_offline : R.string.domain_online);
-
                 break;
         }
 

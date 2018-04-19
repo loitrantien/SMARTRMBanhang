@@ -1,22 +1,41 @@
 package com.dnu.loi.smartrm.ui.order;
 
-import android.graphics.Typeface;
+
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 
 import com.dnu.loi.smartrm.R;
+import com.dnu.loi.smartrm.bl.order.OrderBL;
+import com.dnu.loi.smartrm.dl.order.OrderDL;
+import com.dnu.loi.smartrm.obj.Dishes;
 import com.dnu.loi.smartrm.ui.base.BaseFragment;
-import com.dnu.loi.smartrm.ui.choosedishes.ChooseDishesFragment;
-import com.dnu.loi.smartrm.ui.ordermanage.OrderManageFragment;
+import com.dnu.loi.smartrm.ui.bill.BillActivity;
+import com.dnu.loi.smartrm.utils.UIHelper;
+import java.util.List;
 
 
-public class OrderFragment extends BaseFragment implements View.OnClickListener {
+public class OrderFragment extends BaseFragment implements IOrderView {
+    private RecyclerView mRecyclerView;
 
-    private TextView tvOrderManage, tvOrderDetail;
+    private AdapterDishesList mAdapter;
 
-    private FloatingActionButton fabAddOrder;
+    private FloatingActionButton fabDone;
+
+    private List<String> dishesIDList;
+
+    private String orderID;
+
+    private IOrderPresenter mPresenter;
+
+    public static OrderFragment newInstance(List<String> dishesIDList, String orderID) {
+        OrderFragment fragment = new OrderFragment();
+        fragment.dishesIDList = dishesIDList;
+        fragment.orderID = orderID;
+        return fragment;
+    }
 
     @Override
     protected int getLayoutInflate() {
@@ -25,68 +44,84 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     protected void mappingView(View view) {
-        tvOrderDetail = view.findViewById(R.id.tvOrder);
-        tvOrderManage = view.findViewById(R.id.tvOrderManage);
-        fabAddOrder = view.findViewById(R.id.fabAddOrder);
+
+        fabDone = view.findViewById(R.id.fabDone);
+        mRecyclerView = view.findViewById(R.id.rcvDishesList);
     }
 
     @Override
     protected void onBindView() {
-        tvOrderManage.setSelected(true);
-        switchContent(new OrderManageFragment());
+        mAdapter = new AdapterDishesList(getContext());
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+
+        mPresenter.initDishesList();
+
     }
 
     @Override
     protected void setViewEvent() {
-        tvOrderManage.setOnClickListener(this);
-        tvOrderDetail.setOnClickListener(this);
-        fabAddOrder.setOnClickListener(this);
+        fabDone.setOnClickListener((v) -> gotoBill(mAdapter.getDishesSelected()));
     }
 
     @Override
     protected void onViewAttach() {
-
+        mPresenter = new OrderPresenter(new OrderBL(new OrderDL()));
+        mPresenter.onViewAttach(this);
     }
 
     @Override
     protected void onViewDestroy() {
+        mPresenter.onViewDestroy();
+    }
+
+    @Override
+    public void showProgressDialog() {
 
     }
 
     @Override
-    public void onClick(View view) {
-        int id = view.getId();
-        switch (id) {
-            //todo
-            case R.id.fabAddOrder:
-                break;
-            case R.id.tvOrderManage:
-                switchState(true);
-                break;
-            case R.id.tvOrder:
-                switchState(false);
-                break;
-        }
+    public void hideProgressDialog() {
+
     }
 
-    private void switchState(boolean isOrderManage) {
-        tvOrderManage.setSelected(isOrderManage);
-        tvOrderManage.setTypeface(isOrderManage ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-        tvOrderDetail.setSelected(!isOrderManage);
-        tvOrderDetail.setTypeface(isOrderManage ? Typeface.DEFAULT : Typeface.DEFAULT_BOLD);
-        Fragment fragment;
-        if (isOrderManage) {
-            fragment = new OrderManageFragment();
-        } else {
-            fragment = new ChooseDishesFragment();
-        }
-        switchContent(fragment);
+    @Override
+    public void showNetworkError() {
+
     }
 
-    private void switchContent(Fragment fragment) {
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.frOrderContent, fragment, fragment.getTag())
-                .commit();
+    @Override
+    public void showError(String message) {
+        UIHelper.ToastShort(message);
+    }
+
+    @Override
+    public void showSaveOrderSuccess() {
+        UIHelper.ToastShort(UIHelper.getString(R.string.save_order_success));
+    }
+
+    @Override
+    public void setDishesList(List<Dishes> dishesList) {
+        mAdapter.refresh(dishesList);
+    }
+
+    @Override
+    public void setDishesSelected(List<Dishes> dishesList) {
+
+    }
+
+    @Override
+    public void saveOrder() {
+
+    }
+
+    @Override
+    public void gotoBill(List<Dishes> dishesList) {
+        Intent intent = new Intent(getContext(), BillActivity.class);
+        BillActivity.setData("12", dishesList,()-> getActivity().finish());
+        startActivity(intent);
     }
 }
