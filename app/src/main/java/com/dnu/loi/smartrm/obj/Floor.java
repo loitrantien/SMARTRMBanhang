@@ -8,7 +8,7 @@ package com.dnu.loi.smartrm.obj;
 
 public class Floor {
 
-    String floorID;
+    private String floorID;
 
     public String getFloorID() {
         return floorID;

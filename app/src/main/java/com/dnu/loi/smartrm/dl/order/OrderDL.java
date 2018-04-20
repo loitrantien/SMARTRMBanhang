@@ -1,6 +1,7 @@
 package com.dnu.loi.smartrm.dl.order;
 
 import com.dnu.loi.smartrm.obj.Dishes;
+import com.dnu.loi.smartrm.obj.Order;
 
 import java.util.ArrayList;
 import java.util.List;

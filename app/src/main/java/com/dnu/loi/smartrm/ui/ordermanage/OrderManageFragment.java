@@ -117,4 +117,19 @@ public class OrderManageFragment extends BaseFragment implements IOrderManageVie
         intent.putExtra(ConstHelper.ORDER_MODE, OrderMode.ADD_MODE.getValues());
         startActivity(intent);
     }
+
+    @Override
+    public void setOrderList(List<Order> orderList) {
+
+    }
+
+    @Override
+    public void setMerge(List<Order> orderList) {
+
+    }
+
+    @Override
+    public void splitOrder(Order order) {
+
+    }
 }

@@ -39,13 +39,13 @@ public class OrderBL implements IOrderBL {
     @Override
     public void saveOrder(Order order, onDataLoaded<Order> listener) {
         try {
-            int result = dl.saveOrder();
+            int result = dl.saveOrder(order);
             if (result == ConstHelper.ERROR_VALUE)
                 listener.onFailed();
             else
                 listener.onResponse(order);
         } catch (Exception e) {
-            listener.onException();
+            listener.onException(e);
         }
     }
 }
