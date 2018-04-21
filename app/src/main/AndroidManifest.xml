@@ -23,8 +23,12 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:label="@string/title_activity_main" />
-        <activity android:name=".ui.bill.BillActivity"/>
-        <activity android:name=".ui.order.OrderActivity"/>
+        <activity android:name=".ui.bill.BillActivity"
+            android:label="@string/title_activity_bill"
+            />
+        <activity android:name=".ui.order.OrderActivity"
+            android:label="@string/title_activity_order"
+            />
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.dnu.loi.smartrm.ui.more;
 
+import android.os.Build;
 import android.view.View;
 
 import com.dnu.loi.smartrm.R;
@@ -16,7 +17,6 @@ public class MoreFragment extends BaseFragment {
 
     @Override
     protected void mappingView(View view) {
-
     }
 
     @Override

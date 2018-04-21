@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.dnu.loi.smartrm.R;
 import com.dnu.loi.smartrm.bl.order.OrderBL;
@@ -14,15 +15,16 @@ import com.dnu.loi.smartrm.obj.Dishes;
 import com.dnu.loi.smartrm.ui.base.BaseFragment;
 import com.dnu.loi.smartrm.ui.bill.BillActivity;
 import com.dnu.loi.smartrm.utils.UIHelper;
+
 import java.util.List;
 
 
 public class OrderFragment extends BaseFragment implements IOrderView {
     private RecyclerView mRecyclerView;
 
-    private AdapterDishesList mAdapter;
+    private TextView tvSave, tvTakeMonney;
 
-    private FloatingActionButton fabDone;
+    private AdapterDishesList mAdapter;
 
     private List<String> dishesIDList;
 
@@ -44,8 +46,8 @@ public class OrderFragment extends BaseFragment implements IOrderView {
 
     @Override
     protected void mappingView(View view) {
-
-        fabDone = view.findViewById(R.id.fabDone);
+        tvSave = view.findViewById(R.id.tvSave);
+        tvTakeMonney = view.findViewById(R.id.tvTakeMoney);
         mRecyclerView = view.findViewById(R.id.rcvDishesList);
     }
 
@@ -64,7 +66,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
 
     @Override
     protected void setViewEvent() {
-        fabDone.setOnClickListener((v) -> gotoBill(mAdapter.getDishesSelected()));
+        tvTakeMonney.setOnClickListener((v) -> gotoBill(mAdapter.getDishesSelected()));
     }
 
     @Override
@@ -121,7 +123,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
     @Override
     public void gotoBill(List<Dishes> dishesList) {
         Intent intent = new Intent(getContext(), BillActivity.class);
-        BillActivity.setData("12", dishesList,()-> getActivity().finish());
+        BillActivity.setData("12", dishesList, () -> getActivity().finish());
         startActivity(intent);
     }
 }

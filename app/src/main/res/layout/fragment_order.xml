@@ -1,26 +1,118 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context="com.dnu.loi.smartrm.ui.order.OrderFragment">
 
-    <android.support.v7.widget.RecyclerView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rcvDishesList"
-        android:clipToPadding="false"
-        android:padding="@dimen/space_small" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabDone"
-        android:layout_width="@dimen/view_size_50dp"
-        android:layout_height="@dimen/view_size_50dp"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_height="?actionBarSize"
         android:background="@color/colorPrimary"
-        android:src="@drawable/ic_add_white"
-        android:scaleType="centerCrop"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:padding="@dimen/space_normal">
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/title_activity_order"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/font_huge"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.dnu.loi.smartrm.custom.EditTextClearAble
+            android:id="@+id/etTableSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_small"
+            android:layout_toLeftOf="@id/tvFloorFilter"
+            android:background="@drawable/bg_white_radius_3dp"
+            android:padding="@dimen/space_tiny"
+            app:hint="@string/hint_search_dishes"
+            app:leftDrawable="@drawable/ic_switch_search" />
+
+        <TextView
+            android:id="@+id/tvFloorFilter"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/etTableSearch"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/etTableSearch"
+            android:layout_marginEnd="@dimen/space_small"
+            android:layout_marginRight="@dimen/space_small"
+            android:background="@drawable/sl_white_gray_radius_3dp"
+            android:drawableEnd="@drawable/ic_dropdown"
+            android:drawablePadding="@dimen/space_normal"
+            android:drawableRight="@drawable/ic_dropdown"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/space_normal"
+            android:paddingRight="@dimen/space_normal"
+            android:paddingStart="@dimen/space_normal"
+            android:text="Tất cả"
+            android:textSize="@dimen/font_small" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcvDishesList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/llBottom"
+            android:layout_below="@id/etTableSearch"
+            android:clipToPadding="false"
+            android:padding="@dimen/space_small" />
+
+        <LinearLayout
+            android:id="@+id/llBottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorDarkGray"
+            android:padding="@dimen/space_small">
+
+            <ImageView
+                android:id="@+id/ivCancel"
+                android:layout_width="@dimen/space_40"
+                android:layout_height="@dimen/space_40"
+                android:layout_margin="@dimen/space_small"
+                android:background="@drawable/bg_white_radius_3dp"
+                android:padding="@dimen/space_normal"
+                android:src="@drawable/ic_cancel_order" />
+
+            <TextView
+                android:id="@+id/tvSave"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/space_40"
+                android:layout_margin="@dimen/space_small"
+                android:layout_weight="1"
+                android:background="@drawable/bg_white_radius_3dp"
+                android:gravity="center"
+                android:text="@string/save"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/font_large" />
+
+            <TextView
+                android:id="@+id/tvTakeMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/space_40"
+                android:layout_margin="@dimen/space_small"
+                android:layout_weight="1"
+                android:background="@drawable/bg_btn_main"
+                android:gravity="center"
+                android:text="@string/take_money"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/font_large" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>

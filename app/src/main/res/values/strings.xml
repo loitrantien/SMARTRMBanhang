@@ -14,10 +14,10 @@
     <string name="order">ORDER</string>
     <string name="map">SƠ ĐỒ</string>
     <string name="folow">THEO DÕI</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">SMARTRM</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications">Thông báo</string>
     <string name="nav_order">order</string>
     <string name="nav_map">Sơ đồ</string>
     <string name="nav_more">Thêm</string>
@@ -25,7 +25,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="table_num">Tìm kiếm theo số bàn</string>
+    <string name="hint_search_table_num">Tìm kiếm theo số bàn</string>
     <string name="network_error">Không có kết nối internet. Vui lòng bật 3G/4G hoặc WIFI trước.</string>
     <string name="cancel">hủy</string>
     <string name="take_monney">thu tiền</string>
@@ -41,4 +41,13 @@
     <string name="menu">Thực đơn</string>
     <string name="somthing_wrong">Có lỗi xảy ra xin thử lại sau</string>
     <string name="save_order_success">Lưu order thành công</string>
+    <string name="title_activity_bill">Hóa đơn</string>
+    <string name="title_activity_order">Chọn món ăn</string>
+    <string name="notification_empty">Không có thông báo</string>
+    <string name="title_order">Bán hàng</string>
+    <string name="title_map">Sơ đồ</string>
+    <string name="title_more">SMARTRM - Bán hàng</string>
+    <string name="hint_search_dishes">Tìm kiếm món ăn theo tên, mã SKU</string>
+    <string name="save">cất</string>
+    <string name="take_money">Thu tiền</string>
 </resources>
