@@ -12,14 +12,29 @@
         android:background="@color/colorPrimary"
         android:padding="@dimen/space_normal">
 
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/view_size_40dp"
+            android:layout_height="@dimen/view_size_40dp"
+            android:padding="@dimen/space_small"
+            android:background="@drawable/sl_tran_blue"
+            android:src="@drawable/ic_back_white" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="@string/title_activity_order"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/font_huge"
+            android:textSize="@dimen/font_large"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivAddDishes"
+            android:background="@drawable/sl_tran_blue"
+            android:layout_width="@dimen/view_size_40dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_add_white" />
     </LinearLayout>
 
     <RelativeLayout
@@ -27,24 +42,24 @@
         android:layout_height="match_parent">
 
         <com.dnu.loi.smartrm.custom.EditTextClearAble
-            android:id="@+id/etTableSearch"
+            android:id="@+id/etDishesSearch"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/view_size_40dp"
             android:layout_margin="@dimen/space_small"
-            android:layout_toLeftOf="@id/tvFloorFilter"
+            android:layout_toLeftOf="@id/tvDishesFilter"
             android:background="@drawable/bg_white_radius_3dp"
             android:padding="@dimen/space_tiny"
             app:hint="@string/hint_search_dishes"
             app:leftDrawable="@drawable/ic_switch_search" />
 
         <TextView
-            android:id="@+id/tvFloorFilter"
+            android:id="@+id/tvDishesFilter"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/etTableSearch"
+            android:layout_alignBottom="@id/etDishesSearch"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@id/etTableSearch"
+            android:layout_alignTop="@id/etDishesSearch"
             android:layout_marginEnd="@dimen/space_small"
             android:layout_marginRight="@dimen/space_small"
             android:background="@drawable/sl_white_gray_radius_3dp"
@@ -64,10 +79,74 @@
             android:id="@+id/rcvDishesList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/llBottom"
-            android:layout_below="@id/etTableSearch"
+            android:layout_above="@id/llInfo"
+            android:layout_below="@id/etDishesSearch"
             android:clipToPadding="false"
             android:padding="@dimen/space_small" />
+
+        <LinearLayout
+            android:id="@+id/llInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/llBottom"
+            android:background="@color/colorDarkGray"
+            android:orientation="horizontal"
+            android:padding="@dimen/space_small">
+
+            <ImageView
+                android:layout_width="@dimen/view_size_30dp"
+                android:layout_height="@dimen/view_size_30dp"
+                android:src="@drawable/ic_customer_blue"
+                android:padding="@dimen/space_small"
+                />
+
+            <TextView
+                android:textColor="@color/colorBlack"
+                android:gravity="center"
+                android:id="@+id/tvPeopleNum"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/view_size_30dp"
+                android:background="@drawable/sl_white_gray_radius_3dp"
+                android:minWidth="@dimen/view_size_30dp" />
+
+            <ImageView
+                android:layout_width="@dimen/view_size_30dp"
+                android:layout_height="@dimen/view_size_30dp"
+                android:src="@drawable/ic_table_blue"
+                android:padding="@dimen/space_small"
+                />
+
+            <TextView
+                android:gravity="center"
+                android:textColor="@color/colorBlack"
+                android:id="@+id/tvTableNum"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/view_size_30dp"
+                android:background="@drawable/sl_white_gray_radius_3dp"
+                android:minWidth="@dimen/view_size_30dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/space_small"
+                android:gravity="center"
+                android:text="@string/total"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/font_normal"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTotal"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right"
+                android:text="0"
+                android:layout_marginRight="@dimen/space_small"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/font_normal"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/llBottom"
@@ -82,9 +161,9 @@
                 android:layout_width="@dimen/space_40"
                 android:layout_height="@dimen/space_40"
                 android:layout_margin="@dimen/space_small"
-                android:background="@drawable/bg_white_radius_3dp"
-                android:padding="@dimen/space_normal"
-                android:src="@drawable/ic_cancel_order" />
+                android:background="@drawable/sl_white_gray_radius_3dp"
+                android:padding="@dimen/space_small"
+                android:src="@drawable/ic_close_red" />
 
             <TextView
                 android:id="@+id/tvSave"
@@ -92,7 +171,7 @@
                 android:layout_height="@dimen/space_40"
                 android:layout_margin="@dimen/space_small"
                 android:layout_weight="1"
-                android:background="@drawable/bg_white_radius_3dp"
+                android:background="@drawable/sl_white_gray_radius_3dp"
                 android:gravity="center"
                 android:text="@string/save"
                 android:textAllCaps="true"

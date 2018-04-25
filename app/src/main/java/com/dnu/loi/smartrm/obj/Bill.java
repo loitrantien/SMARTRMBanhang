@@ -2,13 +2,16 @@ package com.dnu.loi.smartrm.obj;
 
 import com.dnu.loi.smartrm.database.DatabaseColumn;
 import com.dnu.loi.smartrm.database.DatabaseTable;
+import com.dnu.loi.smartrm.database.entity.BillDb;
+
+import java.util.List;
 
 /**
  * Mô tả:
  * <p>
  * Created by loi on 19/04/2018.
  */
-@DatabaseTable(TableName = "bill")
+@DatabaseTable(TableName = "bills")
 public class Bill {
 
     @DatabaseColumn(columnName = "id", isPrimaryKey = true)
@@ -23,8 +26,28 @@ public class Bill {
     @DatabaseColumn(columnName = "total")
     private String total;
 
-    @DatabaseColumn(columnName = "payment")
-    private String payment;
+    @DatabaseColumn(columnName = "id_table", isEnableCustom = true, classCustom = Table.class)
+    private Table table;
+
+    private List<BillDetail> billDetails;
+
+    private Order order;
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public List<BillDetail> getBillDetails() {
+        return billDetails;
+    }
+
+    public void setBillDetails(List<BillDetail> billDetails) {
+        this.billDetails = billDetails;
+    }
 
     public int getId() {
         return id;
@@ -58,12 +81,21 @@ public class Bill {
         this.total = total;
     }
 
-    public String getPayment() {
-        return payment;
+    public Table getTable() {
+        return table;
     }
 
-    public void setPayment(String payment) {
-        this.payment = payment;
+    public void setTable(Table table) {
+        this.table = table;
     }
 
+    public BillDb getDbObject() {
+        BillDb billDb = new BillDb();
+        billDb.setId(id);
+        billDb.setDate(date);
+        billDb.setName(name);
+        billDb.setTable(table.getTableId());
+        billDb.setTotal(total);
+        return billDb;
+    }
 }

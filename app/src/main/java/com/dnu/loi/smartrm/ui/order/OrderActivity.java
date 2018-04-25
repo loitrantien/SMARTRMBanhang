@@ -4,6 +4,8 @@ import android.content.Intent;
 
 import com.dnu.loi.smartrm.R;
 import com.dnu.loi.smartrm.common.OrderMode;
+import com.dnu.loi.smartrm.obj.Order;
+import com.dnu.loi.smartrm.obj.Table;
 import com.dnu.loi.smartrm.ui.base.BaseActivity;
 
 import java.util.List;
@@ -22,13 +24,16 @@ public class OrderActivity extends BaseActivity {
 
     public static OrderMode MODE;
 
-    private static String orderID;
+    private static Table table;
 
-    private static List<String> dishesIDList;
+    private static Order order;
 
-    public static void setData(List<String> dishesIDList, String orderID) {
-        OrderActivity.orderID = orderID;
-        OrderActivity.dishesIDList = dishesIDList;
+
+    public static void setInstance(Table tableNum) {
+        OrderActivity.table = tableNum;
+    }
+    public static void setInstance(Order order) {
+        OrderActivity.order = order;
     }
 
     @Override
@@ -38,7 +43,6 @@ public class OrderActivity extends BaseActivity {
 
     @Override
     protected void mappingView() {
-        getOrderMode();
     }
 
     @Override
@@ -47,12 +51,12 @@ public class OrderActivity extends BaseActivity {
         if (MODE == ADD_MODE)
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.frContainer, new OrderFragment())
+                    .replace(R.id.frContainer, OrderFragment.newInstance(table))
                     .commit();
         else {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.frContainer, OrderFragment.newInstance(dishesIDList, orderID))
+                    .replace(R.id.frContainer, OrderFragment.newInstance(order))
                     .commit();
         }
     }
@@ -65,13 +69,9 @@ public class OrderActivity extends BaseActivity {
     @Override
     protected void onActivityDestroy() {
         MODE = null;
-        orderID = null;
-        dishesIDList = null;
+        table = null;
+        order = null;
     }
 
-    private void getOrderMode() {
-        Intent intent = getIntent();
-        int mode = intent.getIntExtra(ORDER_MODE, ERROR_VALUE);
-        MODE = OrderMode.getMode(mode);
-    }
+
 }

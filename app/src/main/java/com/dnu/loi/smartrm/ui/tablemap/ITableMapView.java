@@ -50,4 +50,6 @@ public interface ITableMapView extends MVPView {
      * Created by loi on 4/18/2018
      */
     void showListFloor();
+
+    void setTablesSelected(List<Table> tables);
 }

@@ -21,10 +21,10 @@ public class TableMapBL implements ITableMapBL {
     }
 
     @Override
-    public void initTableMap(onDataLoaded<List<Table>> listener) {
+    public void getTablesSelected(onDataLoaded<List<Table>> listener) {
         new Thread(() -> {
             try {
-                List<Table> tables = dl.getAllTable();
+                List<Table> tables = dl.getTablesSelected();
 
                 if (tables == null)
                     listener.onFailed();
@@ -60,7 +60,7 @@ public class TableMapBL implements ITableMapBL {
     public void loadTablesByFloor(Floor floor, onDataLoaded<List<Table>> listener) {
         new Thread(() -> {
             try {
-                List<Table> tables = dl.getTableByFloorID(floor.getFloorID());
+                List<Table> tables = dl.getTablesByFloorID(floor);
 
                 if (tables == null)
                     listener.onFailed();

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/pop_edit_order"
+        android:icon="@drawable/ic_list_order"
+        android:title="@string/pop_edit_order" />
+
+    <item
+        android:id="@+id/pop_merge_order"
+        android:icon="@drawable/ic_merge_order_gray"
+        android:title="@string/pop_merge_order" />
+
+    <item
+        android:id="@+id/pop_split_order"
+        android:icon="@drawable/ic_split_order"
+        android:title="@string/pop_split_order" />
+    <item
+        android:id="@+id/pop_cancel_order"
+        android:icon="@drawable/ic_cancel_order"
+        android:title="@string/pop_cancel_order" />
+</menu>

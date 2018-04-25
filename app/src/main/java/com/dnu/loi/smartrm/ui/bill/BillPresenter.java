@@ -36,7 +36,7 @@ public class BillPresenter extends BasePresenter<IBillView> implements IBillPres
         bl.saveBill(bill, new IBaseBL.onDataLoaded<Bill>() {
             @Override
             public void onResponse(Bill bill) {
-                getView().finish();
+                getView().showSaveBillSuccess();
             }
 
             @Override

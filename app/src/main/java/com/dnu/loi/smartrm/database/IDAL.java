@@ -2,7 +2,14 @@ package com.dnu.loi.smartrm.database;
 
 import java.util.List;
 
-interface IDAL {
+public interface IDAL {
+
+    public void close()
+            throws DalException;
+
+    public void open(Boolean hasWrite)
+            throws DalException;
+
     <DbObject> int delete(DbObject paramDbObject, Class<DbObject> mClass)
             throws DalException;
 

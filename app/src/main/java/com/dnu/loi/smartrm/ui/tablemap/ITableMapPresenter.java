@@ -18,12 +18,6 @@ public interface ITableMapPresenter extends IBasePresenter<ITableMapView> {
      */
     void initTableMap();
 
-    /**
-     * Phương thức load tất cả các tầng
-     *
-     * Created by loi on 4/18/2018
-     */
-    void loadAllFloor();
 
     /**
      * Phương thức lấy danh sách các bàn theo tầng
@@ -32,5 +26,12 @@ public interface ITableMapPresenter extends IBasePresenter<ITableMapView> {
      * Created by loi on 4/18/2018
      */
     void loadTablesByFloor(Floor floor);
+
+    /**
+     * Phương thức lấy danh sách các bàn đã được chọn
+     *
+     * Created by loi on 4/18/2018
+     */
+    void getTableMapSelected();
 
 }

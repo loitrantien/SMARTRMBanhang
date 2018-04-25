@@ -1,5 +1,6 @@
 package com.dnu.loi.smartrm.dl.tablemap;
 
+import com.dnu.loi.smartrm.database.DalException;
 import com.dnu.loi.smartrm.obj.Floor;
 import com.dnu.loi.smartrm.obj.Table;
 
@@ -12,9 +13,11 @@ import java.util.List;
  */
 
 public interface ITableMapDL {
-    List<Table> getAllTable();
+    List<Table> getAllTable() throws DalException;
 
-    List<Floor> getAllFloor();
+    List<Floor> getAllFloor() throws DalException;
 
-    List<Table> getTableByFloorID(String floorID);
+    List<Table> getTablesByFloorID(Floor floor) throws DalException;
+
+    List<Table> getTablesSelected() throws  DalException;
 }

@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.dnu.loi.smartrm.R;
 import com.dnu.loi.smartrm.obj.Dishes;
+import com.dnu.loi.smartrm.obj.OrderDetail;
 import com.dnu.loi.smartrm.ui.base.BaseRecyclerViewAdapter;
 
 import java.util.List;
@@ -16,8 +17,8 @@ import java.util.List;
  * Created by TTLoi on 15/04/2018.
  */
 
-public class AdapterBillDetailList extends BaseRecyclerViewAdapter<Dishes, AdapterBillDetailList.ViewHolder> {
-    public AdapterBillDetailList(List<Dishes> mMainList) {
+public class AdapterBillDetailList extends BaseRecyclerViewAdapter<OrderDetail, AdapterBillDetailList.ViewHolder> {
+    public AdapterBillDetailList(List<OrderDetail> mMainList) {
         super(mMainList);
     }
 
@@ -38,23 +39,20 @@ public class AdapterBillDetailList extends BaseRecyclerViewAdapter<Dishes, Adapt
 
     @Override
     protected void onBind(ViewHolder holder, int position) {
-        Dishes dishes = getCollection().get(position);
+        OrderDetail detail = getCollection().get(position);
 
-        holder.tvDishesName.setText(dishes.getName());
-        holder.tvAmount.setText(String.valueOf(dishes.getAmount()));
-        holder.tvPrice.setText(dishes.getPrice());
-        holder.tvTotalPrice.setText(String.valueOf(
-                Long.parseLong(
-                        dishes.getPrice()) * dishes.getAmount()));
+        holder.tvDishesName.setText(detail.getDishesName());
+        holder.tvAmount.setText(String.valueOf(detail.getAmount()));
+        holder.tvPrice.setText(String.valueOf(detail.getPrice()));
+        holder.tvTotalPrice.setText(String.valueOf(detail.getPrice() * detail.getAmount()));
     }
 
     public String getTotalPrice() {
 
         long total = 0;
 
-        for (Dishes dishes : getCollection()) {
-            total += Long.parseLong(
-                    dishes.getPrice()) * dishes.getAmount();
+        for (OrderDetail dishes : getCollection()) {
+            total += dishes.getPrice() * dishes.getAmount();
         }
 
         return String.valueOf(total);

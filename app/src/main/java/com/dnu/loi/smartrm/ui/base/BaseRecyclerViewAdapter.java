@@ -17,7 +17,10 @@ public abstract class BaseRecyclerViewAdapter<Item, ViewHolder extends RecyclerV
 
     private List<Item> mMainList;
 
-    protected OnItemClickedListener<Item> mListener;
+    protected int currentItemPosition;
+
+    protected OnItemClickedListener<Item> mListener = (view, item) -> {
+    };
 
     public BaseRecyclerViewAdapter(List<Item> mMainList) {
         this.mMainList = mMainList;
@@ -45,7 +48,15 @@ public abstract class BaseRecyclerViewAdapter<Item, ViewHolder extends RecyclerV
 
     protected abstract int getSize();
 
-    public void refresh(List<Item> items){
+    public int getCurrentItemPosition() {
+        return currentItemPosition;
+    }
+
+    public void setCurrentItemPosition(int currentItemPosition) {
+        this.currentItemPosition = currentItemPosition;
+    }
+
+    public void refresh(List<Item> items) {
         mMainList = items;
         notifyDataSetChanged();
     }
@@ -70,11 +81,11 @@ public abstract class BaseRecyclerViewAdapter<Item, ViewHolder extends RecyclerV
         notifyDataSetChanged();
     }
 
-    protected List<Item> getCollection(){
+    protected List<Item> getCollection() {
         return mMainList;
     }
 
-    public void setOnItemClickedListener(OnItemClickedListener<Item> mListener){
+    public void setOnItemClickedListener(OnItemClickedListener<Item> mListener) {
         this.mListener = mListener;
     }
 
@@ -82,7 +93,11 @@ public abstract class BaseRecyclerViewAdapter<Item, ViewHolder extends RecyclerV
 
     protected abstract void onBind(ViewHolder holder, int position);
 
-    public interface OnItemClickedListener<Item>{
+    public Item getItemSelected() {
+        return mMainList.get(currentItemPosition);
+    }
+
+    public interface OnItemClickedListener<Item> {
         void onClick(View view, Item item);
     }
 

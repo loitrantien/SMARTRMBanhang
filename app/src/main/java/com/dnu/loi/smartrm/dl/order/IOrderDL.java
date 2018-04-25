@@ -1,6 +1,8 @@
 package com.dnu.loi.smartrm.dl.order;
 
+import com.dnu.loi.smartrm.database.DalException;
 import com.dnu.loi.smartrm.obj.Dishes;
+import com.dnu.loi.smartrm.obj.DishesType;
 import com.dnu.loi.smartrm.obj.Order;
 
 import java.util.List;
@@ -12,7 +14,10 @@ import java.util.List;
  */
 
 public interface IOrderDL {
-    List<Dishes> getDishesList();
 
-    int saveOrder(Order order);
+    int saveOrder(Order order) throws DalException;
+
+    List<DishesType> getAllDishesType() throws DalException;
+
+    List<Dishes> getDishesListByType(DishesType dishesType) throws DalException;
 }

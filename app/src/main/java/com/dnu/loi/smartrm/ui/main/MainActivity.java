@@ -86,19 +86,15 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     public void onPageSelected(int position) {
         switch (position){
             case 0:
-                setTitle(R.string.title_order);
                 navigation.setSelectedItemId(R.id.nav_order);
                 break;
             case 1:
-                setTitle(R.string.title_map);
                 navigation.setSelectedItemId(R.id.nav_map);
                 break;
             case 2:
-                setTitle(R.string.title_notifications);
                 navigation.setSelectedItemId(R.id.nav_notifications);
                 break;
             case 3:
-                setTitle(R.string.title_more);
                 navigation.setSelectedItemId(R.id.nav_more);
                 break;
         }
@@ -115,7 +111,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
 
         switch (position){
             case 0:
-                fragment=new OrderManageFragment();
+                fragment = OrderManageFragment.newInstance(() -> mPager.setCurrentItem(1));
                 break;
             case 1:
                 fragment = new TableMapFragment();

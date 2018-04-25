@@ -14,13 +14,13 @@ public class DishesType {
     @DatabaseColumn(columnName = "id", isPrimaryKey = true)
     private int id;
 
-    @DatabaseColumn(columnName = "name", isPrimaryKey = true)
+    @DatabaseColumn(columnName = "name")
     private String name;
 
-    @DatabaseColumn(columnName = "description", isPrimaryKey = true)
+    @DatabaseColumn(columnName = "description")
     private String description;
 
-    @DatabaseColumn(columnName = "image", isPrimaryKey = true)
+    @DatabaseColumn(columnName = "image")
     private String image;
 
     public int getId() {

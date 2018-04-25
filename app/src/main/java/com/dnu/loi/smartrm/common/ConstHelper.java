@@ -11,4 +11,5 @@ public final class ConstHelper {
     public static final String ORDER_MODE = "ORDER_MODE";
     public static final int SUCCESS_VALUE = 0;
     public static final int ERROR_VALUE = -1;
+    public static final int GET_ALL_VALUE = -2;
 }

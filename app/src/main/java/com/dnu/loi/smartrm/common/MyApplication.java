@@ -1,9 +1,10 @@
 package com.dnu.loi.smartrm.common;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.dnu.loi.smartrm.database.Dal;
+import com.dnu.loi.smartrm.database.DalException;
+import com.dnu.loi.smartrm.utils.DataBaseHelper;
 
 /**
  * Mô tả: custom file application
@@ -22,7 +23,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        DataBaseHelper.copyAssetToDatabase();
         Dal.newInstance(getApplicationContext());
     }
-
 }

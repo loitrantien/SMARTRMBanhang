@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_white_radius_3dp"
-    android:layout_margin="@dimen/space_small">
+    android:layout_margin="@dimen/space_small"
+    android:background="@drawable/bg_white_radius_3dp">
 
     <LinearLayout
         android:id="@+id/llTableInfo"
@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingTop="@dimen/space_tiny"
+        android:paddingBottom="@dimen/view_size_40dp"
         android:paddingLeft="@dimen/space_tiny"
         android:paddingRight="@dimen/space_tiny"
-        android:paddingBottom="@dimen/view_size_40dp"
+        android:paddingTop="@dimen/space_tiny"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -46,50 +46,63 @@
         android:layout_width="1dp"
         android:layout_height="0dp"
         android:background="@color/colorGray"
-        app:layout_constraintTop_toTopOf="@id/llTableInfo"
         app:layout_constraintBottom_toBottomOf="@id/llTableInfo"
         app:layout_constraintLeft_toRightOf="@id/llTableInfo"
-        />
-
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:id="@+id/tvDescription"
-        android:text="Không có "
-        android:textColor="@color/colorBlack"
-        android:paddingLeft="@dimen/space_normal"
-        android:paddingRight="@dimen/space_small"
-        android:gravity="center_vertical"
-        app:layout_constraintLeft_toRightOf="@id/llTableInfo"
-        app:layout_constraintRight_toLeftOf="@id/ivExpand"
-        app:layout_constraintBottom_toTopOf="@id/tvOrderPrice"
         app:layout_constraintTop_toTopOf="@id/llTableInfo" />
 
-    <TextView
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cslEditOrder"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:id="@+id/tvOrderPrice"
-        android:text="98.000"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/space_normal"
-        android:paddingBottom="@dimen/space_small"
+        android:layout_height="0dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginLeft="1dp"
+        android:background="@drawable/sl_blue_tran"
+        app:layout_constraintBottom_toTopOf="@id/btnRemoveOrder"
         app:layout_constraintLeft_toRightOf="@id/llTableInfo"
         app:layout_constraintRight_toLeftOf="@id/ivExpand"
-        app:layout_constraintBottom_toTopOf="@id/btnRemoveOrder"
-         />
+        app:layout_constraintTop_toTopOf="@id/llTableInfo">
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:paddingLeft="@dimen/space_normal"
+            android:paddingRight="@dimen/space_small"
+            android:text="Không có "
+            android:textColor="@color/colorBlack"
+            app:layout_constraintBottom_toTopOf="@id/tvOrderPrice"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvOrderPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/space_small"
+            android:paddingLeft="@dimen/space_normal"
+            android:text="98.000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 
 
     <ImageView
         android:id="@+id/ivExpand"
         android:layout_width="@dimen/view_size_15dp"
         android:layout_height="0dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/sl_blue_tran"
         android:layout_marginRight="@dimen/space_tiny"
         android:src="@drawable/ic_action_expand_right_gray"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/btnRemoveOrder"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/llTableInfo" />
 
 
@@ -97,33 +110,32 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@color/colorGray"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/btnRemoveOrder"
         app:layout_constraintLeft_toRightOf="@id/llTableInfo"
-        />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/space_normal"
         android:id="@+id/btnRemoveOrder"
-        android:textAllCaps="true"
-        android:text="@string/cancel"
-        android:textColor="@android:color/holo_red_dark"
-        app:layout_constraintRight_toLeftOf="@id/btnTakeMoney"
-        app:layout_constraintBottom_toBottomOf="@id/llTableInfo"
-        app:layout_constraintLeft_toRightOf="@id/llTableInfo" />
-
-    <Button
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/space_normal"
+        android:text="@string/cancel"
+        android:textAllCaps="true"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintBottom_toBottomOf="@id/llTableInfo"
+        app:layout_constraintLeft_toRightOf="@id/llTableInfo"
+        app:layout_constraintRight_toLeftOf="@id/btnTakeMoney" />
+
+    <Button
+        android:id="@+id/btnTakeMoney"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_normal"
+        android:text="@string/take_monney"
         android:textAllCaps="true"
         android:textColor="@color/colorPrimary"
-        android:text="@string/take_monney"
-        android:id="@+id/btnTakeMoney"
-        app:layout_constraintLeft_toRightOf="@id/btnRemoveOrder"
         app:layout_constraintBottom_toBottomOf="@id/llTableInfo"
+        app:layout_constraintLeft_toRightOf="@id/btnRemoveOrder"
         app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

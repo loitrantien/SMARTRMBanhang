@@ -50,4 +50,17 @@
     <string name="hint_search_dishes">Tìm kiếm món ăn theo tên, mã SKU</string>
     <string name="save">cất</string>
     <string name="take_money">Thu tiền</string>
+    <string name="pop_edit_order">Kiểm order</string>
+    <string name="pop_merge_order">Hợp nhất order</string>
+    <string name="pop_split_order">Chia order</string>
+    <string name="pop_cancel_order">Hủy order</string>
+    <string name="total">Tổng tiền</string>
+    <string name="title_add_dishes">Thêm món</string>
+    <string name="dishes_type">Loại đồ ăn</string>
+    <string name="all">Tất cả</string>
+    <string name="floor">Chọn tầng</string>
+    <string name="input_table_num">Nhập số bàn</string>
+    <string name="table_num">Số bàn</string>
+    <string name="input_people_count">Nhập số người</string>
+    <string name="people_count">Số người</string>
 </resources>

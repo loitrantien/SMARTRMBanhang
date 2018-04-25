@@ -13,12 +13,8 @@ import java.util.List;
  */
 
 public interface ITableMapBL extends IBaseBL {
-    /**
-     * Phương thức khởi tạo danh sách bàn ăn
-     * <p>
-     * Created by loi on 4/18/2018
-     */
-    void initTableMap(onDataLoaded<List<Table>> listener);
+
+    void getTablesSelected(onDataLoaded<List<Table>> listener);
 
     /**
      * Phương thức load tất cả các tầng

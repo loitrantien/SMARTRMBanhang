@@ -1,6 +1,7 @@
 package com.dnu.loi.smartrm.ui.order;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,7 +11,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.dnu.loi.smartrm.R;
 import com.dnu.loi.smartrm.obj.Dishes;
+import com.dnu.loi.smartrm.obj.OrderDetail;
 import com.dnu.loi.smartrm.ui.base.BaseRecyclerViewAdapter;
+import com.dnu.loi.smartrm.ui.dialog.InputNumberDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +27,17 @@ import java.util.List;
 public class AdapterDishesList extends BaseRecyclerViewAdapter<Dishes, AdapterDishesList.ViewHolder> {
     private Context context;
 
-    public AdapterDishesList(List<Dishes> mMainList, Context context) {
-        super(mMainList);
-        this.context = context;
-    }
-    public AdapterDishesList(Context context) {
+    private List<Dishes> mSearchList = new ArrayList<>();
+
+    private boolean isSearch;
+    private FragmentManager fragmentManager;
+
+    public AdapterDishesList(Context context, FragmentManager manager) {
         super(new ArrayList<>());
         this.context = context;
+        fragmentManager = manager;
     }
+
 
     @Override
     protected int getLayoutResourceItem() {
@@ -40,7 +46,10 @@ public class AdapterDishesList extends BaseRecyclerViewAdapter<Dishes, AdapterDi
 
     @Override
     protected int getSize() {
-        return getCollection().size();
+        if (isSearch) {
+            return mSearchList != null ? mSearchList.size() : 0;
+        }
+        return getCollection() != null ? getCollection().size() : 0;
     }
 
     @Override
@@ -54,9 +63,11 @@ public class AdapterDishesList extends BaseRecyclerViewAdapter<Dishes, AdapterDi
 
         holder.tvDishesName.setText(dishes.getName());
 
-        holder.tvPrice.setText(dishes.getPrice());
+        holder.tvPrice.setText(String.valueOf(dishes.getPrice()));
 
         holder.llDishesSelected.setVisibility(dishes.isSelected() ? View.VISIBLE : View.GONE);
+
+        holder.tvAmount.setText(String.valueOf(dishes.getAmount()));
 
         Glide.with(context)
                 .load(dishes.getImage())
@@ -67,6 +78,7 @@ public class AdapterDishesList extends BaseRecyclerViewAdapter<Dishes, AdapterDi
             dishes.setAmount(1);
             holder.tvAmount.setText(String.valueOf(dishes.getAmount()));
             dishes.setSelected(true);
+            mListener.onClick(holder.ivDishesImage, dishes);
         });
 
         holder.ivDishesSelected.setOnClickListener((view) -> {
@@ -74,12 +86,14 @@ public class AdapterDishesList extends BaseRecyclerViewAdapter<Dishes, AdapterDi
             holder.tvAmount.setText("1");
             dishes.setSelected(false);
             dishes.setAmount(0);
+            mListener.onClick(holder.ivDishesSelected, dishes);
         });
 
         holder.llDishesSelected.setOnClickListener((view) -> {
             int newAmount = dishes.getAmount() + 1;
             dishes.setAmount(newAmount);
             holder.tvAmount.setText(String.valueOf(newAmount));
+            mListener.onClick(holder.llDishesSelected, dishes);
         });
 
         holder.ivMinus.setOnClickListener((view) -> {
@@ -89,12 +103,20 @@ public class AdapterDishesList extends BaseRecyclerViewAdapter<Dishes, AdapterDi
                 holder.tvAmount.setText(String.valueOf(newAmount));
             } else
                 holder.ivDishesSelected.performClick();
+            mListener.onClick(holder.ivMinus, dishes);
         });
 
         holder.ivPlus.setOnClickListener((view) -> {
             int newAmount = dishes.getAmount() + 1;
             dishes.setAmount(newAmount);
             holder.tvAmount.setText(String.valueOf(newAmount));
+            mListener.onClick(holder.ivPlus, dishes);
+        });
+
+        holder.tvAmount.setOnClickListener(v -> {
+            InputNumberDialog.newInstance("Nhập số lượng", "Số lượng", aDouble -> {
+                holder.tvAmount.setText(String.valueOf(aDouble.intValue()));
+            }).show(fragmentManager, null);
         });
     }
 
@@ -106,6 +128,62 @@ public class AdapterDishesList extends BaseRecyclerViewAdapter<Dishes, AdapterDi
                 dishesList.add(dishes);
         }
         return dishesList;
+    }
+
+    @Override
+    public void refresh(List<Dishes> dishesList) {
+        super.refresh(getDishesSelected());
+        addAll(dishesList);
+    }
+
+    @Override
+    public void addAll(List<Dishes> dishesList) {
+        List<Dishes> temp = new ArrayList<>();
+        if (dishesList != null) {
+            for (Dishes item : dishesList) {
+                if (!getCollection().contains(item))
+                    temp.add(item);
+            }
+        }
+
+        super.addAll(temp);
+    }
+
+    public void setDishesSelected(List<OrderDetail> dishesSelected) {
+        //nếu có dữ liệu (edit mode)
+        if (dishesSelected != null) {
+            for (OrderDetail item : dishesSelected) {
+                for (Dishes dishes : getCollection()) {
+                    if (item.getDishesId() == dishes.getId()) {
+                        dishes.setAmount(item.getAmount());
+                        dishes.setSelected(true);
+                    }
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public String getTotalPrice() {
+
+        long total = 0;
+
+        for (Dishes dishes : getCollection()) {
+            total += dishes.getPrice() * dishes.getAmount();
+        }
+
+        return String.valueOf(total);
+    }
+
+    public void searchDishes(String dishesName) {
+        mSearchList.clear();//xóa search list cũ
+        isSearch = !dishesName.isEmpty();
+        if (isSearch)
+            for (Dishes dishes : getCollection()) {
+                if (dishes.getName().toLowerCase().trim().contains(dishesName.toLowerCase().trim()))
+                    mSearchList.add(dishes);
+            }
+        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

@@ -6,16 +6,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import static com.dnu.loi.smartrm.common.CommonApp.DATABASE_NAME;
 
-public class SQLiteDatabaseHelper extends SQLiteOpenHelper {
-    private static SQLiteDatabaseHelper DATABASE_SINGLETON;
+public class MySQLiteDatabase extends SQLiteOpenHelper {
+    private static MySQLiteDatabase DATABASE_SINGLETON;
 
-    private SQLiteDatabaseHelper(Context paramContext) {
+    private MySQLiteDatabase(Context paramContext) {
         super(paramContext, DATABASE_NAME, null, 1);
     }
 
-    static SQLiteDatabaseHelper getInstance(Context paramContext) {
+    static MySQLiteDatabase getInstance(Context paramContext) {
         if (DATABASE_SINGLETON == null) {
-            DATABASE_SINGLETON = new SQLiteDatabaseHelper(paramContext);
+            DATABASE_SINGLETON = new MySQLiteDatabase(paramContext);
         }
         return DATABASE_SINGLETON;
     }

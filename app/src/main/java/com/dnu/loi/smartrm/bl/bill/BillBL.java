@@ -25,11 +25,10 @@ public class BillBL implements IBillBL {
             int result;
             try {
                 result = dl.saveBill(bill);
-                if (result == SUCCESS_VALUE)
-                    listener.onResponse(bill);
                 if (result == ERROR_VALUE)
                     listener.onFailed();
-
+                else
+                    listener.onResponse(bill);
             } catch (Exception e) {
                 listener.onException(e);
             }

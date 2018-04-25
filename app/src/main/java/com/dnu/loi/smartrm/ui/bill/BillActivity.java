@@ -2,19 +2,20 @@ package com.dnu.loi.smartrm.ui.bill;
 
 import com.dnu.loi.smartrm.R;
 import com.dnu.loi.smartrm.obj.Dishes;
+import com.dnu.loi.smartrm.obj.Order;
 import com.dnu.loi.smartrm.ui.base.BaseActivity;
 
 import java.util.List;
 
 public class BillActivity extends BaseActivity {
 
-    private static String tableNum;
-    private static List<Dishes> dishesList;
+    private static Order order;
     private static onDoneListener listener;
 
-    public static void setData(String tableNum, List<Dishes> dishesList, onDoneListener listener) {
-        BillActivity.tableNum = tableNum;
-        BillActivity.dishesList = dishesList;
+
+
+    public static void setData(Order order, onDoneListener listener) {
+        BillActivity.order = order;
         BillActivity.listener = listener;
     }
 
@@ -32,7 +33,7 @@ public class BillActivity extends BaseActivity {
     protected void onBindView() {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.frContainer, BillFragment.newInstance(dishesList, tableNum))
+                .replace(R.id.frContainer, BillFragment.newInstance(order,listener))
                 .commit();
     }
 
@@ -43,15 +44,7 @@ public class BillActivity extends BaseActivity {
 
     @Override
     protected void onActivityDestroy() {
-        dishesList = null;
-        tableNum = null;
         listener = null;
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        listener.onDone();
     }
 
     public interface onDoneListener {

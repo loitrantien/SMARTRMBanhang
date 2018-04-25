@@ -71,4 +71,8 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract void onViewDestroy();
 
+    protected void runOnUiThread(Runnable action){
+        getActivity().runOnUiThread(action);
+    }
+
 }

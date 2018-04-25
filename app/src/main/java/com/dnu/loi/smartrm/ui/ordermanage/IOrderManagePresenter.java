@@ -9,4 +9,6 @@ import com.dnu.loi.smartrm.ui.base.IBasePresenter;
  */
 
 interface IOrderManagePresenter extends IBasePresenter<IOrderManageView> {
+
+    void initOrderList();
 }

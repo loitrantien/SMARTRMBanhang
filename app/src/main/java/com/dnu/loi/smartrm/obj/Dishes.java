@@ -12,16 +12,16 @@ import java.io.Serializable;
  */
 
 @DatabaseTable(TableName = "products")
-public class Dishes implements Serializable {
+public class Dishes {
 
     @DatabaseColumn(columnName = "id", isPrimaryKey = true)
-    private String id;
+    private int id;
 
     @DatabaseColumn(columnName = "name")
     private String name;
 
     @DatabaseColumn(columnName = "unit_price")
-    private String price;
+    private Double price;
 
     @DatabaseColumn(columnName = "description")
     private String description;
@@ -33,17 +33,17 @@ public class Dishes implements Serializable {
     private String unit;
 
     @DatabaseColumn(columnName = "id_type")
-    private String id_type;
+    private int id_type;
 
     private transient int amount;
 
     private transient boolean isSelected;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -55,11 +55,11 @@ public class Dishes implements Serializable {
         this.name = name;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -103,11 +103,18 @@ public class Dishes implements Serializable {
         isSelected = selected;
     }
 
-    public String getId_type() {
+    public void setId_type(int id_type) {
+        this.id_type = id_type;
+    }
+
+    public int getId_type() {
         return id_type;
     }
 
-    public void setId_type(String id_type) {
-        this.id_type = id_type;
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Dishes)
+            return ((Dishes) obj).getId() == id;
+        return super.equals(obj);
     }
 }

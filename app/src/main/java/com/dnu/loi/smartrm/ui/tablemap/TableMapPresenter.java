@@ -19,9 +19,9 @@ import java.util.List;
 
 public class TableMapPresenter extends BasePresenter<ITableMapView> implements ITableMapPresenter {
 
-    private static final String INIT_TABLE_MAP_TAG = "TableMapPresenter#initTableMap";
     private static final String LOAD_TABLE_BY_FLOOR_TAG = "TableMapPresenter#loadTablesByFloor";
     private static final String LOAD_ALL_FLOOR_TAG = "TableMapPresenter#loadAllFloor";
+    private static final String LOAD_TABLE_SELECTED_TAG = "getTableMapSelected";
     private ITableMapBL bl;
 
     public TableMapPresenter(ITableMapBL bl) {
@@ -41,29 +41,11 @@ public class TableMapPresenter extends BasePresenter<ITableMapView> implements I
 
     @Override
     public void initTableMap() {
-        bl.initTableMap(new IBaseBL.onDataLoaded<List<Table>>() {
-            @Override
-            public void onResponse(List<Table> tables) {
-                getView().setListTable(tables);
-            }
-
-            @Override
-            public void onFailed() {
-                getView().showError(UIHelper.getString(R.string.on_floor_load_error));            }
-
-            @Override
-            public void onException(Exception e) {
-                ExceptionHelper.handlerException(INIT_TABLE_MAP_TAG, e);
-            }
-        });
-    }
-
-    @Override
-    public void loadAllFloor() {
         bl.loadAllFloor(new IBaseBL.onDataLoaded<List<Floor>>() {
             @Override
             public void onResponse(List<Floor> floors) {
                 getView().setListFloor(floors);
+                loadTablesByFloor(floors.get(0));
             }
 
             @Override
@@ -78,12 +60,14 @@ public class TableMapPresenter extends BasePresenter<ITableMapView> implements I
         });
     }
 
+
     @Override
     public void loadTablesByFloor(Floor floor) {
         bl.loadTablesByFloor(floor, new IBaseBL.onDataLoaded<List<Table>>() {
             @Override
             public void onResponse(List<Table> tables) {
                 getView().setListTable(tables);
+                getTableMapSelected();
             }
 
             @Override
@@ -94,6 +78,26 @@ public class TableMapPresenter extends BasePresenter<ITableMapView> implements I
             @Override
             public void onException(Exception e) {
                 ExceptionHelper.handlerException(LOAD_TABLE_BY_FLOOR_TAG, e);
+            }
+        });
+    }
+
+    @Override
+    public void getTableMapSelected() {
+        bl.getTablesSelected(new IBaseBL.onDataLoaded<List<Table>>() {
+            @Override
+            public void onResponse(List<Table> tables) {
+                getView().setTablesSelected(tables);
+            }
+
+            @Override
+            public void onFailed() {
+                getView().showError(UIHelper.getString(R.string.on_floor_load_error));
+            }
+
+            @Override
+            public void onException(Exception e) {
+                ExceptionHelper.handlerException(LOAD_TABLE_SELECTED_TAG, e);
             }
         });
     }

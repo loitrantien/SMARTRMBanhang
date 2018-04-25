@@ -19,13 +19,13 @@ import java.util.List;
  * Created by loi on 07/04/2018.
  */
 
-public class AdapterTableListRecyclerViewAdapter extends BaseRecyclerViewAdapter<Table, AdapterTableListRecyclerViewAdapter.ViewHolder> {
+public class TableMapAdapter extends BaseRecyclerViewAdapter<Table, TableMapAdapter.ViewHolder> {
 
     private List<Table> mSearchList = new ArrayList<>();
 
     private boolean isSearch;
 
-    public AdapterTableListRecyclerViewAdapter() {
+    public TableMapAdapter() {
         super(new ArrayList<>());
     }
 
@@ -62,11 +62,22 @@ public class AdapterTableListRecyclerViewAdapter extends BaseRecyclerViewAdapter
 
         if (isSearch)
             for (Table table : getCollection()) {
-                if (String.valueOf(table.getTableNum()).equals(tableNum)) {
+                if (String.valueOf(table.getTableNum().toLowerCase()).contains(tableNum.toLowerCase())) {
                     mSearchList.add(table);
                 }
             }
 
+        notifyDataSetChanged();
+    }
+
+    public void setTablesSelected(List<Table> tables) {
+        for (Table table : tables) {
+            for (Table item : getCollection()) {
+                if (item.getTableId() == table.getTableId()) {
+                    item.setSelected(true);
+                }
+            }
+        }
         notifyDataSetChanged();
     }
 

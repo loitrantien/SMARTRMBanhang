@@ -1,9 +1,11 @@
 package com.dnu.loi.smartrm.dl.tablemap;
 
+import com.dnu.loi.smartrm.common.ConstHelper;
+import com.dnu.loi.smartrm.database.Dal;
+import com.dnu.loi.smartrm.database.DalException;
 import com.dnu.loi.smartrm.obj.Floor;
 import com.dnu.loi.smartrm.obj.Table;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,47 +16,24 @@ import java.util.List;
 
 public class TableMapDL implements ITableMapDL {
     @Override
-    public List<Table> getAllTable() {
-        List<Table> tables = new ArrayList<>();
-
-        for (int i = 1; i <= 12; i++) {
-
-            Table table1 = new Table();
-            table1.setTableId("axcc");
-            table1.setTableNum(i);
-
-            if (i % 2 == 0) {
-                table1.setSelected(true);
-                table1.setTableType(Integer.parseInt("2" + i));
-            } else {
-                table1.setTableType(Integer.parseInt("2" + (i + 1)));
-            }
-            tables.add(table1);
-        }
-        for (int i = 1; i <= 12; i++) {
-
-            Table table1 = new Table();
-            table1.setTableId("axcc");
-            table1.setTableNum(i);
-
-            if (i % 2 == 0) {
-                table1.setTableType(Integer.parseInt("1" + i));
-            } else {
-                table1.setSelected(true);
-                table1.setTableType(Integer.parseInt("1" + (i + 1)));
-            }
-            tables.add(table1);
-        }
-        return tables;
+    public List<Table> getAllTable() throws DalException {
+        return Dal.getInstance().getAll(Table.class);
     }
 
     @Override
-    public List<Floor> getAllFloor() {
-        return null;
+    public List<Floor> getAllFloor() throws DalException {
+        return Dal.getInstance().getAll(Floor.class);
     }
 
     @Override
-    public List<Table> getTableByFloorID(String floorID) {
-        return null;
+    public List<Table> getTablesByFloorID(Floor floor) throws DalException {
+        if (floor.getId() == ConstHelper.GET_ALL_VALUE)
+            return getAllTable();
+        return Dal.getInstance().query("select * from 'table' WHERE id_floor = '" + floor.getId() + "'", Table.class);
+    }
+
+    @Override
+    public List<Table> getTablesSelected() throws DalException {
+        return Dal.getInstance().query("select id_table as id from 'order'",Table.class);
     }
 }

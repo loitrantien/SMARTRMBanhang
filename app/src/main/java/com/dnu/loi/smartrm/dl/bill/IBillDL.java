@@ -1,5 +1,6 @@
 package com.dnu.loi.smartrm.dl.bill;
 
+import com.dnu.loi.smartrm.database.DalException;
 import com.dnu.loi.smartrm.obj.Bill;
 
 /**
@@ -9,5 +10,5 @@ import com.dnu.loi.smartrm.obj.Bill;
  */
 
 public interface IBillDL {
-    int saveBill(Bill bill);
+    int saveBill(Bill bill) throws DalException;
 }

@@ -9,5 +9,5 @@ import com.dnu.loi.smartrm.ui.base.MVPView;
  */
 
 public interface IBillView extends MVPView {
-    void finish();
+    void showSaveBillSuccess();
 }

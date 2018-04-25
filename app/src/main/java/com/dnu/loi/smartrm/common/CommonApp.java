@@ -7,6 +7,6 @@ package com.dnu.loi.smartrm.common;
  */
 
 public class CommonApp {
-    public static final String DATABASE_NAME = "SMART_RM_DB";
+    public static final String DATABASE_NAME = "smartrm_db.db";
     public static ScreenApp SCREEN;
 }

@@ -1,5 +1,6 @@
 package com.dnu.loi.smartrm.ui.order;
 
+import com.dnu.loi.smartrm.obj.DishesType;
 import com.dnu.loi.smartrm.obj.Order;
 import com.dnu.loi.smartrm.ui.base.IBasePresenter;
 
@@ -10,7 +11,9 @@ import com.dnu.loi.smartrm.ui.base.IBasePresenter;
  */
 
 public interface IOrderPresenter extends IBasePresenter<IOrderView> {
-    void initDishesList();
+    void initData();
+
+    void getDishesListByType(DishesType dishesType);
 
     void saveOrder(Order order);
 }

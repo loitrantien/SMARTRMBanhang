@@ -3,6 +3,7 @@ package com.dnu.loi.smartrm.ui.order;
 import com.dnu.loi.smartrm.R;
 import com.dnu.loi.smartrm.bl.order.IOrderBL;
 import com.dnu.loi.smartrm.obj.Dishes;
+import com.dnu.loi.smartrm.obj.DishesType;
 import com.dnu.loi.smartrm.obj.Order;
 import com.dnu.loi.smartrm.ui.base.BasePresenter;
 import com.dnu.loi.smartrm.ui.base.IBaseBL;
@@ -36,8 +37,29 @@ public class OrderPresenter extends BasePresenter<IOrderView> implements IOrderP
     }
 
     @Override
-    public void initDishesList() {
-        bl.initDishesList(new IBaseBL.onDataLoaded<List<Dishes>>() {
+    public void initData() {
+        bl.initDishesTypeList(new IBaseBL.onDataLoaded<List<DishesType>>() {
+            @Override
+            public void onResponse(List<DishesType> dishesTypes) {
+                getView().setDishesTypeList(dishesTypes);
+                getDishesListByType(dishesTypes.get(0));
+            }
+
+            @Override
+            public void onFailed() {
+                getView().showError(UIHelper.getString(R.string.somthing_wrong));
+            }
+
+            @Override
+            public void onException(Exception e) {
+                ExceptionHelper.handlerException("initDishesTypeList",e);
+            }
+        });
+    }
+
+    @Override
+    public void getDishesListByType(DishesType dishesType){
+        bl.getDishesListByType(dishesType,new IBaseBL.onDataLoaded<List<Dishes>>() {
             @Override
             public void onResponse(List<Dishes> dishesList) {
                 getView().setDishesList(dishesList);
@@ -50,7 +72,7 @@ public class OrderPresenter extends BasePresenter<IOrderView> implements IOrderP
 
             @Override
             public void onException(Exception e) {
-                ExceptionHelper.handlerException("OrderPresenter#initDishesList", e);
+                ExceptionHelper.handlerException("OrderPresenter#initData", e);
             }
         });
     }
@@ -60,7 +82,7 @@ public class OrderPresenter extends BasePresenter<IOrderView> implements IOrderP
         bl.saveOrder(order, new IBaseBL.onDataLoaded<Order>() {
             @Override
             public void onResponse(Order order) {
-
+                getView().showSaveOrderSuccess();
             }
 
             @Override
@@ -70,7 +92,7 @@ public class OrderPresenter extends BasePresenter<IOrderView> implements IOrderP
 
             @Override
             public void onException(Exception e) {
-                ExceptionHelper.handlerException("saveOrder#initDishesList", e);
+                ExceptionHelper.handlerException("saveOrder#initData", e);
             }
         });
     }

@@ -5,33 +5,41 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.dnu.loi.smartrm.common.ConstHelper.ERROR_VALUE;
+
 public class Dal implements IDAL {
-    private SQLiteDatabaseHelper databaseHelper;
+    private MySQLiteDatabase databaseHelper;
     private SQLiteDatabase mSqLiteDatabase;
     private static IDAL REPOSITORY;
 
-    private Dal(SQLiteDatabaseHelper paramSQLiteDatabaseHelper) {
-        this.databaseHelper = paramSQLiteDatabaseHelper;
+    private Dal(MySQLiteDatabase sqLiteDatabase) {
+        this.databaseHelper = sqLiteDatabase;
+        try {
+            open(true);
+        } catch (DalException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static IDAL newInstance(Context context) {
+    public static void newInstance(Context context) {
         if (REPOSITORY == null) {
-            REPOSITORY = new Dal(SQLiteDatabaseHelper.getInstance(context));
+            REPOSITORY = new Dal(MySQLiteDatabase.getInstance(context));
         }
-        return REPOSITORY;
     }
 
     public static IDAL getInstance() {
         return REPOSITORY;
     }
 
-
-    private void close()
+    @Override
+    public void close()
             throws DalException {
         if (this.databaseHelper == null) {
             throw new DalException("không thể đóng database vì sqLiteDatabaseHelper = null");
@@ -39,7 +47,8 @@ public class Dal implements IDAL {
         this.mSqLiteDatabase.close();
     }
 
-    private void open(Boolean hasWrite)
+    @Override
+    public void open(Boolean hasWrite)
             throws DalException {
         if (this.databaseHelper == null) {
             throw new DalException("không thể mở database vì sqLiteDatabaseHelper = null");
@@ -52,11 +61,68 @@ public class Dal implements IDAL {
     }
 
     private Object getIntFromCursor(Cursor cursor, DatabaseColumn column) {
-        return cursor.getInt(cursor.getColumnIndex(column.columnName()));
+        int index = cursor.getColumnIndex(column.columnName());
+        if (index != ERROR_VALUE) {
+            return cursor.getInt(index);
+        }
+        return null;
+    }
+
+    private Object getDoubleFromCursor(Cursor cursor, DatabaseColumn column) {
+        int index = cursor.getColumnIndex(column.columnName());
+        if (index != ERROR_VALUE) {
+            return cursor.getDouble(index);
+        }
+        return null;
+    }
+
+    private Object getLongFromCursor(Cursor cursor, DatabaseColumn column) {
+        int index = cursor.getColumnIndex(column.columnName());
+        if (index != ERROR_VALUE) {
+            return cursor.getLong(index);
+        }
+        return null;
+    }
+
+    private Object getFloatFromCursor(Cursor cursor, DatabaseColumn column) {
+        int index = cursor.getColumnIndex(column.columnName());
+        if (index != ERROR_VALUE) {
+            return cursor.getFloat(index);
+        }
+        return null;
     }
 
     private Object getStringFromCursor(Cursor cursor, DatabaseColumn column) {
-        return cursor.getInt(cursor.getColumnIndex(column.columnName()));
+        int index = cursor.getColumnIndex(column.columnName());
+        if (index != ERROR_VALUE) {
+            return cursor.getString(index);
+        }
+        return null;
+    }
+
+    private Object getDataFromCursor(Field field, Cursor cursor, DatabaseColumn column) {
+        if (column != null && field != null && cursor != null) {
+            if (field.getType().isAssignableFrom(Integer.class) || field.getType().isAssignableFrom(int.class)) {
+                return getIntFromCursor(cursor, column);
+            }
+            if (field.getType().isAssignableFrom(String.class)) {
+                return getStringFromCursor(cursor, column);
+            }
+            if (field.getType().isAssignableFrom(Double.class) || field.getType().isAssignableFrom(double.class)) {
+                return getDoubleFromCursor(cursor, column);
+            }
+            if (field.getType().isAssignableFrom(Long.class) || field.getType().isAssignableFrom(long.class)) {
+                return getLongFromCursor(cursor, column);
+            }
+            if (field.getType().isAssignableFrom(Float.class) || field.getType().isAssignableFrom(float.class)) {
+                return getFloatFromCursor(cursor, column);
+            }
+            if (field.getType().isAssignableFrom(Boolean.class) || field.getType().isAssignableFrom(boolean.class)) {
+                Object o = getIntFromCursor(cursor, column);
+                return o != null && o.toString().equals("1");
+            }
+        }
+        return null;
     }
 
     public <DbObject> List<DbObject> getAll(Class<DbObject> mClass) throws DalException {
@@ -68,15 +134,11 @@ public class Dal implements IDAL {
         String query;
 
         if (databaseTable != null) {
-            query = String.format("SELECT  * FROM %s", (databaseTable).TableName());
+            query = String.format("SELECT  * FROM '%s'", (databaseTable).TableName());
         } else {
-            query = String.format("SELECT  * FROM %s", mClass.getSimpleName());
+            query = String.format("SELECT  * FROM '%s'", mClass.getSimpleName());
         }
-        try {
-            open(false);
-        } catch (DalException localRepositoryException) {
-            //todo
-        }
+
         Cursor cursor = this.mSqLiteDatabase.rawQuery(query, null);
 
         Field[] fields = mClass.getDeclaredFields();
@@ -91,12 +153,7 @@ public class Dal implements IDAL {
                         field.setAccessible(true);
                         DatabaseColumn column = field.getAnnotation(DatabaseColumn.class);
                         if (column != null) {
-                            if (field.getType().isAssignableFrom(Integer.class)) {
-                                field.set(dbObject, getIntFromCursor(cursor, column));
-                            }
-                            if (field.getType().isAssignableFrom(String.class)) {
-                                field.set(dbObject, getStringFromCursor(cursor, column));
-                            }
+                            field.set(dbObject, getDataFromCursor(field, cursor, column));
                         }
                     }
                     dbObjectList.add(dbObject);
@@ -108,7 +165,6 @@ public class Dal implements IDAL {
 
             } while (cursor.moveToNext());
             cursor.close();
-            close();
         }
         return dbObjectList;
 
@@ -123,14 +179,9 @@ public class Dal implements IDAL {
         String query;
 
         if (databaseTable != null) {
-            query = String.format("SELECT  * FROM %s", (databaseTable).TableName());
+            query = String.format("SELECT  * FROM '%s'", (databaseTable).TableName());
         } else {
-            query = String.format("SELECT  * FROM %s", mClass.getSimpleName());
-        }
-        try {
-            open(false);
-        } catch (DalException localRepositoryException) {
-            //todo
+            query = String.format("SELECT  * FROM '%s'", mClass.getSimpleName());
         }
         Cursor cursor = this.mSqLiteDatabase.rawQuery(query, null);
 
@@ -146,31 +197,25 @@ public class Dal implements IDAL {
                         field.setAccessible(true);
                         DatabaseColumn column = field.getAnnotation(DatabaseColumn.class);
                         if (column != null) {
-                            if (field.getType().isAssignableFrom(Integer.class)) {
-                                field.set(dbObject, getIntFromCursor(cursor, column));
-                            }
-                            if (field.getType().isAssignableFrom(String.class)) {
-                                field.set(dbObject, getStringFromCursor(cursor, column));
-                            }
                             if (column.isEnableCustom()) {
                                 field.set(dbObject, customColumnData.doCustom(
                                         getStringFromCursor(cursor, column),
                                         column.classCustom() != Object.class ? column.classCustom() : field.getType())
                                 );
-                            }
-
+                                open(false);
+                            } else
+                                field.set(dbObject, getDataFromCursor(field, cursor, column));
                         }
                     }
                     dbObjectList.add(dbObject);
 
                 } catch (Exception e) {
-                    //todo
+                    Log.e("getAll", e.getMessage());
                 }
 
 
             } while (cursor.moveToNext());
             cursor.close();
-            close();
         }
         return dbObjectList;
     }
@@ -181,11 +226,6 @@ public class Dal implements IDAL {
         }
         List<DbObject> dbObjectList = new ArrayList<>();
 
-        try {
-            open(false);
-        } catch (DalException localRepositoryException) {
-            //todo
-        }
         Cursor cursor = this.mSqLiteDatabase.rawQuery(query, null);
 
         Field[] fields = mClass.getDeclaredFields();
@@ -199,14 +239,8 @@ public class Dal implements IDAL {
                     for (Field field : fields) {
                         field.setAccessible(true);
                         DatabaseColumn column = field.getAnnotation(DatabaseColumn.class);
-                        if (column != null) {
-                            if (field.getType().isAssignableFrom(Integer.class)) {
-                                field.set(dbObject, getIntFromCursor(cursor, column));
-                            }
-                            if (field.getType().isAssignableFrom(String.class)) {
-                                field.set(dbObject, getStringFromCursor(cursor, column));
-                            }
-                        }
+                        if (column != null)
+                            field.set(dbObject, getDataFromCursor(field, cursor, column));
                     }
                     dbObjectList.add(dbObject);
 
@@ -217,7 +251,6 @@ public class Dal implements IDAL {
 
             } while (cursor.moveToNext());
             cursor.close();
-            close();
         }
         return dbObjectList;
     }
@@ -228,11 +261,6 @@ public class Dal implements IDAL {
         }
         List<DbObject> dbObjectList = new ArrayList<>();
 
-        try {
-            open(false);
-        } catch (DalException localRepositoryException) {
-            //todo
-        }
         Cursor cursor = this.mSqLiteDatabase.rawQuery(query, null);
 
         Field[] fields = mClass.getDeclaredFields();
@@ -247,18 +275,14 @@ public class Dal implements IDAL {
                         field.setAccessible(true);
                         DatabaseColumn column = field.getAnnotation(DatabaseColumn.class);
                         if (column != null) {
-                            if (field.getType().isAssignableFrom(Integer.class)) {
-                                field.set(dbObject, getIntFromCursor(cursor, column));
-                            }
-                            if (field.getType().isAssignableFrom(String.class)) {
-                                field.set(dbObject, getStringFromCursor(cursor, column));
-                            }
                             if (column.isEnableCustom()) {
                                 field.set(dbObject, customColumnData.doCustom(
                                         getStringFromCursor(cursor, column),
                                         column.classCustom() != Object.class ? column.classCustom() : field.getType())
                                 );
-                            }
+                                open(false);
+                            } else
+                                field.set(dbObject, getDataFromCursor(field, cursor, column));
 
                         }
                     }
@@ -271,7 +295,6 @@ public class Dal implements IDAL {
 
             } while (cursor.moveToNext());
             cursor.close();
-            close();
         }
         return dbObjectList;
     }
@@ -279,8 +302,6 @@ public class Dal implements IDAL {
     @Override
     public <DbObject> long save(DbObject paramDbObject, Class<DbObject> mClass) throws DalException {
 
-        open(true);
-
         DatabaseTable databaseTable = mClass.getAnnotation(DatabaseTable.class);
 
         ContentValues contentValue = new ContentValues();
@@ -290,13 +311,15 @@ public class Dal implements IDAL {
         if (fields != null) {
             for (Field field : fields) {
                 try {
-
+                    field.setAccessible(true);
                     DatabaseColumn column = field.getAnnotation(DatabaseColumn.class);
 
                     if (column != null) {
                         if (column.hasAutoIncrement()) {
-                            break;
+                            continue;
                         }
+                        if (column.isEnableCustom())
+                            continue;
                         contentValue.put(column.columnName(), field.get(paramDbObject).toString());
                     }
                 } catch (Exception e) {
@@ -306,22 +329,19 @@ public class Dal implements IDAL {
             }
         }
 
-        close();
-
+        long result;
         if (databaseTable != null) {
-            return contentValue.size() == 0 ? -1 : mSqLiteDatabase.insert(databaseTable.TableName(), null, contentValue);
+            result = contentValue.size() == 0 ? -1 : mSqLiteDatabase.insert("'" + databaseTable.TableName() + "'", null, contentValue);
         } else {
-            return contentValue.size() == 0 ? -1 : mSqLiteDatabase.insert(mClass.getSimpleName(), null, contentValue);
+            result = contentValue.size() == 0 ? -1 : mSqLiteDatabase.insert("'" + mClass.getSimpleName() + "'", null, contentValue);
         }
 
-
+        return result;
     }
 
     @Override
     public <DbObject> int update(DbObject paramDbObject, Class<DbObject> mClass) throws DalException {
 
-        open(true);
-
         DatabaseTable databaseTable = mClass.getAnnotation(DatabaseTable.class);
 
         ContentValues contentValue = new ContentValues();
@@ -329,12 +349,12 @@ public class Dal implements IDAL {
         Field[] fields = mClass.getDeclaredFields();
 
         String whereClause = "";
-        String whereArgs[] = new String[]{};
+        List<String> whereArgs = new ArrayList<>();
 
         if (fields != null) {
             for (Field field : fields) {
                 try {
-
+                    field.setAccessible(true);
                     DatabaseColumn column = field.getAnnotation(DatabaseColumn.class);
 
                     if (column != null) {
@@ -342,12 +362,12 @@ public class Dal implements IDAL {
                             whereClause = whereClause.isEmpty()
                                     ? column.columnName() + " = ?"
                                     : whereClause + " AND " + column.columnName() + " = ?";
-                            if (whereArgs.length == 0) {
-                                whereArgs[0] = field.get(paramDbObject).toString();
-                            } else {
-                                whereArgs[whereArgs.length] = field.get(paramDbObject).toString();
-                            }
+                            whereArgs.add(field.get(paramDbObject).toString());
+
                         }
+
+                        if (column.isEnableCustom())
+                            continue;
 
                         contentValue.put(column.columnName(), field.get(paramDbObject).toString());
                     }
@@ -358,33 +378,37 @@ public class Dal implements IDAL {
             }
         }
 
-        close();
+        String[] whereArgsArray = new String[whereArgs.size()];
+
+        for (int i = 0; i < whereArgs.size(); i++) {
+            whereArgsArray[i] = whereArgs.get(i);
+        }
+
+        int result;
 
         if (databaseTable != null) {
-            return contentValue.size() == 0 ? -1 : mSqLiteDatabase.update(databaseTable.TableName(), contentValue, whereClause, whereArgs);
+            result = contentValue.size() == 0 ? -1 : mSqLiteDatabase.update("'" + databaseTable.TableName() + "'", contentValue, whereClause, whereArgsArray);
 
         } else {
-            return contentValue.size() == 0 ? -1 : mSqLiteDatabase.update(mClass.getSimpleName(), contentValue, whereClause, whereArgs);
-
+            result = contentValue.size() == 0 ? -1 : mSqLiteDatabase.update(mClass.getSimpleName(), contentValue, whereClause, whereArgsArray);
         }
+        return result;
     }
 
     @Override
     public <DbObject> int delete(DbObject paramDbObject, Class<DbObject> mClass) throws DalException {
-
-        open(true);
 
         DatabaseTable databaseTable = mClass.getAnnotation(DatabaseTable.class);
 
         Field[] fields = mClass.getDeclaredFields();
 
         String whereClause = "";
-        String whereArgs[] = new String[]{};
+        List<String> whereArgs = new ArrayList<>();
 
         if (fields != null) {
             for (Field field : fields) {
                 try {
-
+                    field.setAccessible(true);
                     DatabaseColumn column = field.getAnnotation(DatabaseColumn.class);
 
                     if (column != null) {
@@ -392,11 +416,7 @@ public class Dal implements IDAL {
                             whereClause = whereClause.isEmpty()
                                     ? column.columnName() + " = ?"
                                     : whereClause + " AND " + column.columnName() + " = ?";
-                            if (whereArgs.length == 0) {
-                                whereArgs[0] = field.get(paramDbObject).toString();
-                            } else {
-                                whereArgs[whereArgs.length] = field.get(paramDbObject).toString();
-                            }
+                            whereArgs.add(field.get(paramDbObject).toString());
                         }
                     }
                 } catch (Exception e) {
@@ -406,18 +426,23 @@ public class Dal implements IDAL {
             }
         }
 
-        close();
+        String[] whereArgsArray = new String[whereArgs.size()];
 
-        if (databaseTable != null) {
-            return mSqLiteDatabase.delete(databaseTable.TableName(), whereClause, whereArgs);
-
-        } else {
-            return mSqLiteDatabase.delete(mClass.getSimpleName(), whereClause, whereArgs);
-
+        for (int i = 0; i < whereArgs.size(); i++) {
+            whereArgsArray[i] = whereArgs.get(i);
         }
+
+        int result;
+        if (databaseTable != null) {
+            result = mSqLiteDatabase.delete("'" + databaseTable.TableName() + "'", whereClause, whereArgsArray);
+        } else {
+            result = mSqLiteDatabase.delete(mClass.getSimpleName(), whereClause, whereArgsArray);
+        }
+
+        return result;
     }
 
-    public interface ICustomColumnData<FiledType> {
-        FiledType doCustom(Object data, Class mClass);
+    public interface ICustomColumnData {
+        Object doCustom(Object data, Class mClass) throws DalException;
     }
 }

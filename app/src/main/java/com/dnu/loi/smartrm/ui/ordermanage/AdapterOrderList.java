@@ -1,5 +1,11 @@
 package com.dnu.loi.smartrm.ui.ordermanage;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.view.menu.MenuBuilder;
+import android.support.v7.view.menu.MenuPopupHelper;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.View;
@@ -11,6 +17,7 @@ import com.dnu.loi.smartrm.R;
 import com.dnu.loi.smartrm.obj.Order;
 import com.dnu.loi.smartrm.ui.base.BaseRecyclerViewAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,8 +28,12 @@ import java.util.List;
 
 public class AdapterOrderList extends BaseRecyclerViewAdapter<Order, AdapterOrderList.ViewHolder> {
 
-    public AdapterOrderList(List<Order> mMainList) {
-        super(mMainList);
+    private Context context;
+
+    public AdapterOrderList(Context context) {
+        super(new ArrayList<>());
+        this.context = context;
+
     }
 
     @Override
@@ -40,14 +51,37 @@ public class AdapterOrderList extends BaseRecyclerViewAdapter<Order, AdapterOrde
         return new ViewHolder(view);
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onBind(ViewHolder holder, int position) {
         Order order = getCollection().get(position);
 
-        holder.tvTableNum.setText(order.getTableNum());
+        holder.tvTableNum.setText(order.getTable().getTableNum());
         holder.tvTablePeople.setText(order.getPeopleCount());
         holder.tvOrderPrice.setText(order.getOrderPrice());
         holder.tvDescription.setText(Html.fromHtml(order.getDetailListString()));
+
+        holder.cslEditOrder.setOnClickListener((v) -> mListener.onClick(v,order));
+
+        holder.ivExpand.setOnClickListener(v -> {
+            PopupMenu popup = new PopupMenu(context, holder.ivExpand);
+
+            popup.getMenuInflater().inflate(R.menu.popup_menu_order_manage, popup.getMenu());
+
+            popup.setOnMenuItemClickListener(item -> {
+                int id = item.getItemId();
+
+                switch (id){
+
+                }
+
+                return true;
+            });
+
+            MenuPopupHelper popupHelper= new MenuPopupHelper(context, (MenuBuilder) popup.getMenu(),holder.ivExpand);
+            popupHelper.setForceShowIcon(true);
+            popupHelper.show();
+        });
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -55,9 +89,11 @@ public class AdapterOrderList extends BaseRecyclerViewAdapter<Order, AdapterOrde
         TextView tvTableNum, tvTablePeople, tvDescription, tvOrderPrice;
         ImageView ivExpand;
         Button btnRemoveOrder, btnTakeMoney;
+        ConstraintLayout cslEditOrder;
 
         ViewHolder(View itemView) {
             super(itemView);
+            cslEditOrder = itemView.findViewById(R.id.cslEditOrder);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvOrderPrice = itemView.findViewById(R.id.tvOrderPrice);
             tvTableNum = itemView.findViewById(R.id.tvTableNum);

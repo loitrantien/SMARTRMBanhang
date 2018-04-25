@@ -1,5 +1,6 @@
 package com.dnu.loi.smartrm.ui.bill;
 
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,8 +9,12 @@ import android.widget.TextView;
 import com.dnu.loi.smartrm.R;
 import com.dnu.loi.smartrm.bl.bill.BillBL;
 import com.dnu.loi.smartrm.dl.bill.BillDL;
-import com.dnu.loi.smartrm.obj.Dishes;
+import com.dnu.loi.smartrm.obj.Bill;
+import com.dnu.loi.smartrm.obj.BillDetail;
+import com.dnu.loi.smartrm.obj.Order;
+import com.dnu.loi.smartrm.obj.OrderDetail;
 import com.dnu.loi.smartrm.ui.base.BaseFragment;
+import com.dnu.loi.smartrm.utils.DataBaseHelper;
 import com.dnu.loi.smartrm.utils.DateTimeHelper;
 import com.dnu.loi.smartrm.utils.UIHelper;
 
@@ -31,18 +36,16 @@ public class BillFragment extends BaseFragment implements IBillView {
 
     private IBillPresenter mPresenter;
 
-    private List<Dishes> dishesList = new ArrayList<>();
+    private Order order;
 
-    private String tableNum;
+    private BillActivity.onDoneListener listener;
 
-    public static BillFragment newInstance(List<Dishes> dishesList, String tableNum) {
-        BillFragment fragment = new BillFragment();
-        fragment.dishesList = dishesList;
-        fragment.tableNum = tableNum;
-
-        return fragment;
+    public static Fragment newInstance(Order order, BillActivity.onDoneListener listener) {
+        BillFragment billFragment = new BillFragment();
+        billFragment.order = order;
+        billFragment.listener = listener;
+        return billFragment;
     }
-
 
     @Override
     protected int getLayoutInflate() {
@@ -63,10 +66,10 @@ public class BillFragment extends BaseFragment implements IBillView {
 
     @Override
     protected void onBindView() {
-        mAdapter = new AdapterBillDetailList(dishesList);
-        tvTableNum.setText(tvTableNum.getText() + tableNum);
+        mAdapter = new AdapterBillDetailList(order.getDetailList());
+        tvTableNum.setText(tvTableNum.getText() + order.getTable().getTableNum());
         tvDate.setText(tvDate.getText() + DateTimeHelper.getCurrentDateTime());
-        tvBillNum.setText(tvBillNum.getText() + "1020072");
+        tvBillNum.setText(tvBillNum.getText() + "10200" + order.getId());
         tvTotal.setText(mAdapter.getTotalPrice());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -77,7 +80,29 @@ public class BillFragment extends BaseFragment implements IBillView {
 
     @Override
     protected void setViewEvent() {
-        btnDone.setOnClickListener((view) -> getActivity().finish());
+        btnDone.setOnClickListener((view) -> mPresenter.saveBill(getBill()));
+    }
+
+    private Bill getBill() {
+        Bill bill = new Bill();
+        bill.setId(DataBaseHelper.getNewBillId());
+        bill.setName("10200" + bill.getId());
+        bill.setDate(DateTimeHelper.getCurrentDateTime());
+        bill.setTable(order.getTable());
+        bill.setOrder(order);
+        bill.setTotal(mAdapter.getTotalPrice());
+        List<BillDetail> billDetails = new ArrayList<>();
+
+        for (OrderDetail detail : order.getDetailList()) {
+            BillDetail billDetail = new BillDetail();
+            billDetail.setIdBill(bill.getId());
+            billDetail.setIdDishes(detail.getDishesId());
+            billDetail.setQuantity(detail.getAmount());
+            billDetail.setUnitPrice(detail.getPrice());
+        }
+
+        bill.setBillDetails(billDetails);
+        return bill;
     }
 
     @Override
@@ -106,14 +131,15 @@ public class BillFragment extends BaseFragment implements IBillView {
 
     }
 
+
     @Override
     public void showError(String message) {
         UIHelper.ToastShort(message);
     }
 
-
     @Override
-    public void finish() {
+    public void showSaveBillSuccess() {
         getActivity().finish();
+        listener.onDone();
     }
 }

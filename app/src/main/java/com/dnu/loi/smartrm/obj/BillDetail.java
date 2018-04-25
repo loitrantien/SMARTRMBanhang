@@ -23,4 +23,35 @@ public class BillDetail {
     @DatabaseColumn(columnName = "unit_price")
     private double unitPrice;
 
+    public int getIdBill() {
+        return IdBill;
+    }
+
+    public void setIdBill(int idBill) {
+        IdBill = idBill;
+    }
+
+    public int getIdDishes() {
+        return IdDishes;
+    }
+
+    public void setIdDishes(int idDishes) {
+        IdDishes = idDishes;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
 }

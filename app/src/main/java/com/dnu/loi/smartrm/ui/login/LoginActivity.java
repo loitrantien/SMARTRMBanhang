@@ -1,7 +1,7 @@
 package com.dnu.loi.smartrm.ui.login;
 
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.content.pm.ActivityInfo;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -38,7 +38,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         etDomain = findViewById(R.id.etDomain);
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
-
     }
 
     @Override
@@ -74,6 +73,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         if (findViewById(R.id.vCheckLarge) != null) {
             newWidth = screenWidth / 3;
             CommonApp.SCREEN = ScreenApp.Large;
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         } else {
             newWidth = screenWidth - screenWidth / 10;
             CommonApp.SCREEN = ScreenApp.Normal;
@@ -88,7 +88,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onClick(View view) {
         int id = view.getId();
-
         switch (id) {
             case R.id.btnLogin:
                 gotoMain();

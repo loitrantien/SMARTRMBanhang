@@ -9,17 +9,19 @@ import com.dnu.loi.smartrm.common.TableType;
  * <p>
  * Created by loi on 07/04/2018.
  */
-@DatabaseTable(TableName = "TABLE")
+@DatabaseTable(TableName = "table")
 public class Table {
-    @DatabaseColumn(columnName = "TableId",isPrimaryKey = true)
-    private String TableId;
-    @DatabaseColumn(columnName = "FloorId",isPrimaryKey = true)
-    private String FloorId;
-    @DatabaseColumn(columnName = "TableNum")
-    private int tableNum;
+    @DatabaseColumn(columnName = "id",isPrimaryKey = true)
+    private int TableId;
 
-    @DatabaseColumn(columnName = "TableType")
-    private int tableType;
+    @DatabaseColumn(columnName = "id_floor",isPrimaryKey = true)
+    private String FloorId;
+
+    @DatabaseColumn(columnName = "name")
+    private String tableNum;
+
+    @DatabaseColumn(columnName = "type")
+    private String  tableType;
 
     private boolean isSelected;
 
@@ -41,83 +43,83 @@ public class Table {
         this.peopleCount = peopleCount;
     }
 
-    public String getTableId() {
+    public int getTableId() {
         return TableId;
     }
 
-    public void setTableId(String tableId) {
+    public void setTableId(int tableId) {
         TableId = tableId;
     }
 
-    public int getTableNum() {
+    public String getTableNum() {
         return tableNum;
     }
 
-    public void setTableNum(int tableNum) {
+    public void setTableNum(String tableNum) {
         this.tableNum = tableNum;
     }
 
     public TableType getTableType() {
         switch (tableType){
-            case 12:
+            case "CIRCLE_2":
                 return TableType.CIRCLE_2;
-            case 14:
+            case "CIRCLE_4":
                 return TableType.CIRCLE_4;
-            case 16:
+            case "CIRCLE_6":
                 return TableType.CIRCLE_6;
-            case 18:
+            case "CIRCLE_8":
                 return TableType.CIRCLE_8;
-            case 110:
+            case "CIRCLE_10":
                 return TableType.CIRCLE_10;
-            case 112:
+            case "CIRCLE_12":
                 return TableType.CIRCLE_12;
-            case 22:
+            case "SQUARE_2":
                 return TableType.SQUARE_2;
-            case 24:
+            case "SQUARE_4":
                 return TableType.SQUARE_4;
-            case 26:
+            case "SQUARE_6":
                 return TableType.SQUARE_6;
-            case 28:
+            case "SQUARE_8":
                 return TableType.SQUARE_8;
-            case 210:
+            case "SQUARE_10":
                 return TableType.SQUARE_10;
-            case 212:
+            case "SQUARE_12":
                 return TableType.SQUARE_12;
             default:
                 return TableType.SQUARE_6;
         }
     }
 
-    public void setTableType(int tableType) {
+    public void setTableType(String tableType) {
         this.tableType = tableType;
     }
 
     public int getTableImageResource() {
 
         switch (tableType){
-            case 12:
+            case "CIRCLE_2":
                 return TableType.CIRCLE_2.getImageResource();
-            case 14:
+            case "CIRCLE_4":
                 return TableType.CIRCLE_4.getImageResource();
-            case 16:
+            case "CIRCLE_6":
                 return TableType.CIRCLE_6.getImageResource();
-            case 18:
+            case "CIRCLE_8":
                 return TableType.CIRCLE_8.getImageResource();
-            case 110:
+            case "CIRCLE_10":
                 return TableType.CIRCLE_10.getImageResource();
-            case 112:
+            case "CIRCLE_12":
                 return TableType.CIRCLE_12.getImageResource();
-            case 22:
+            case "SQUARE_2":
                 return TableType.SQUARE_2.getImageResource();
-            case 24:
+            case "SQUARE_4":
                 return TableType.SQUARE_4.getImageResource();
-            case 26:
+            case "SQUARE_6":
                 return TableType.SQUARE_6.getImageResource();
-            case 28:
+            case "SQUARE_8":
                 return TableType.SQUARE_8.getImageResource();
-            case 210:
+            case "SQUARE_10":
                 return TableType.SQUARE_10.getImageResource();
-            case 212:
+            case "SQUARE_12":
                 return TableType.SQUARE_12.getImageResource();
             default:
                 return TableType.SQUARE_6.getImageResource();

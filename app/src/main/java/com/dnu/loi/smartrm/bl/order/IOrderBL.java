@@ -1,6 +1,7 @@
 package com.dnu.loi.smartrm.bl.order;
 
 import com.dnu.loi.smartrm.obj.Dishes;
+import com.dnu.loi.smartrm.obj.DishesType;
 import com.dnu.loi.smartrm.obj.Order;
 import com.dnu.loi.smartrm.ui.base.IBaseBL;
 
@@ -13,7 +14,9 @@ import java.util.List;
  */
 
 public interface IOrderBL extends IBaseBL {
-    void initDishesList(onDataLoaded<List<Dishes>> listener);
+    void getDishesListByType(DishesType dishesType, onDataLoaded<List<Dishes>> listener);
+
+    void initDishesTypeList(onDataLoaded<List<DishesType>> listener);
 
     void saveOrder(Order order, onDataLoaded<Order> listener);
 }

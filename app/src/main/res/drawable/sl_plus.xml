@@ -2,9 +2,9 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_pressed="true">
-        <bitmap android:src="@drawable/ic_mobile_add_selected"/>
+        <bitmap android:src="@drawable/ic_plus_selected"/>
     </item>
     <item android:state_pressed="false">
-        <bitmap android:src="@drawable/ic_mobile_add"/>
+        <bitmap android:src="@drawable/ic_plus"/>
     </item>
 </selector>
