@@ -2,10 +2,9 @@ package com.dnu.loi.smartrm.dl.ordermanage;
 
 import com.dnu.loi.smartrm.database.Dal;
 import com.dnu.loi.smartrm.database.DalException;
-import com.dnu.loi.smartrm.obj.Dishes;
-import com.dnu.loi.smartrm.obj.Order;
-import com.dnu.loi.smartrm.obj.OrderDetail;
-import com.dnu.loi.smartrm.obj.Table;
+import com.dnu.loi.smartrm.entity.Order;
+import com.dnu.loi.smartrm.entity.OrderDetail;
+import com.dnu.loi.smartrm.entity.Table;
 
 import java.util.List;
 
@@ -21,12 +20,12 @@ public class OrderManageDL implements IOrderManageDL {
         return Dal.getInstance().getAll((data, mClass) -> {
 
             if (mClass == Table.class) {
-                return Dal.getInstance().query("select * from 'table' where id ='" + data.toString() + "'", Table.class).get(0);
+                return Dal.getInstance().query("select * from 'tbl_table' where id ='" + data.toString() + "'", Table.class).get(0);
             }
 
             if (mClass == OrderDetail.class) {
                 return Dal.getInstance().query(
-                        "select *, products.name as name_product from 'order_detail' inner join products on products.id = order_detail.id_product where id_order ='" + data.toString() + "'",
+                        "select * from 'tbl_orderDetail' where order_id ='" + data.toString() + "'",
                         OrderDetail.class);
             }
 

@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorGray"
+    android:orientation="vertical"
+    tools:context="com.dnu.loi.smartrm.ui.large.rightsale.RightSaleFragment">
+
+    <LinearLayout
+        android:id="@+id/llMenuBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_size_80dp"
+        android:background="@color/colorWhite"
+        android:padding="@dimen/space_normal"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcvMenu"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_size_60dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llFilterBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_size_60dp"
+        android:background="@color/colorGray"
+        android:padding="@dimen/space_normal"
+        android:orientation="horizontal">
+        <com.dnu.loi.smartrm.custom.EditTextClearAble
+            android:id="@+id/etDishesSearch"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/view_size_40dp"
+            android:background="@drawable/bg_white_radius_3dp"
+            android:padding="@dimen/space_tiny"
+            app:hint="@string/hint_search_dishes"
+            app:leftDrawable="@drawable/ic_switch_search" />
+
+        <TextView
+            android:id="@+id/tvDishesFilter"
+            android:layout_width="100dp"
+            android:layout_height="@dimen/view_size_40dp"
+            android:background="@drawable/sl_white_gray_radius_3dp"
+            android:drawableEnd="@drawable/ic_dropdown"
+            android:layout_marginLeft="@dimen/space_normal"
+            android:drawablePadding="@dimen/space_normal"
+            android:drawableRight="@drawable/ic_dropdown"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/space_normal"
+            android:paddingRight="@dimen/space_normal"
+            android:paddingStart="@dimen/space_normal"
+            android:text="Tất cả"
+            android:textSize="@dimen/font_small" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcvDishesList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:clipToPadding="false"
+        android:padding="@dimen/space_small" />
+
+
+</LinearLayout>

@@ -4,128 +4,121 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dnu.loi.smartrm.ui.login.LoginActivity">
+    tools:context=".ui.normal.login.LoginActivity">
 
-    <ImageView
+    <com.dnu.loi.smartrm.custom.StatusLayout
+        android:id="@+id/slLogin"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg_blur_login_by_passcode" />
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_blur_login_by_passcode" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <LinearLayout
-            android:id="@+id/llLogin"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/space_normal"
-                android:background="@android:color/transparent"
-                android:fontFamily="monospace"
-                android:gravity="center"
-                android:text="@string/app_name"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/font_50"
-                android:textStyle="bold|italic" />
 
             <LinearLayout
+                android:id="@+id/llLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/space_large">
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_normal"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:text="@string/app_name"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font_50"
+                    android:textStyle="bold|italic" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/space_normal"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:background="@android:color/white"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/space_large">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/space_normal"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvConnectOnline"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/colorPrimaryDark"
+                            android:gravity="center"
+                            android:padding="@dimen/space_normal"
+                            android:text="Dành cho nhân viên bán hàng"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/font_large"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <com.dnu.loi.smartrm.custom.EditTextClearAble
+                        android:id="@+id/etUsername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/space_small"
+                        android:layout_marginLeft="@dimen/space_normal"
+                        android:layout_marginRight="@dimen/space_normal"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:background="@drawable/bg_white_radius_3dp"
+                        android:padding="@dimen/space_tiny"
+                        app:hint="@string/user_name"
+                        app:leftDrawable="@drawable/ic_person_1" />
+
+                    <com.dnu.loi.smartrm.custom.EditTextClearAble
+                        android:id="@+id/etPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/space_small"
+                        android:layout_marginLeft="@dimen/space_normal"
+                        android:layout_marginRight="@dimen/space_normal"
+                        android:layout_marginTop="@dimen/space_small"
+                        android:background="@drawable/bg_white_radius_3dp"
+                        android:padding="@dimen/space_tiny"
+                        app:hint="@string/password"
+                        app:leftDrawable="@drawable/ic_password" />
 
                     <TextView
-                        android:id="@+id/tvConnectOnline"
-                        android:layout_width="0dp"
+                        android:id="@+id/btnLogin"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_btn_main"
+                        android:layout_marginLeft="@dimen/space_normal"
+                        android:layout_marginRight="@dimen/space_normal"
+                        android:layout_marginTop="@dimen/space_normal"
+                        android:background="@drawable/selector_main_revert"
                         android:gravity="center"
                         android:padding="@dimen/space_normal"
-                        android:text="Dành cho nhân viên bán hàng"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/font_huge"
+                        android:text="@string/login"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/font_normal"
                         android:textStyle="bold" />
-
                 </LinearLayout>
 
-                <com.dnu.loi.smartrm.custom.EditTextClearAble
-                    android:id="@+id/etDomain"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/space_small"
-                    android:layout_marginLeft="@dimen/space_normal"
-                    android:layout_marginRight="@dimen/space_normal"
-                    android:layout_marginTop="@dimen/space_small"
-                    android:background="@drawable/bg_white_radius_3dp"
-                    android:padding="@dimen/space_tiny"
-                    app:hint="@string/domain_online"
-                    app:leftDrawable="@drawable/ic_server_address" />
 
-                <com.dnu.loi.smartrm.custom.EditTextClearAble
-                    android:id="@+id/etUsername"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/space_small"
-                    android:layout_marginLeft="@dimen/space_normal"
-                    android:layout_marginRight="@dimen/space_normal"
-                    android:layout_marginTop="@dimen/space_small"
-                    android:background="@drawable/bg_white_radius_3dp"
-                    android:padding="@dimen/space_tiny"
-                    app:hint="@string/user_name"
-                    app:leftDrawable="@drawable/ic_person_1" />
-
-                <com.dnu.loi.smartrm.custom.EditTextClearAble
-                    android:id="@+id/etPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/space_small"
-                    android:layout_marginLeft="@dimen/space_normal"
-                    android:layout_marginRight="@dimen/space_normal"
-                    android:layout_marginTop="@dimen/space_small"
-                    android:background="@drawable/bg_white_radius_3dp"
-                    android:padding="@dimen/space_tiny"
-                    app:hint="@string/password"
-                    app:leftDrawable="@drawable/ic_password" />
-
-                <TextView
-                    android:id="@+id/btnLogin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/space_small"
-                    android:layout_marginLeft="@dimen/space_normal"
-                    android:layout_marginRight="@dimen/space_normal"
-                    android:layout_marginTop="@dimen/space_normal"
-                    android:background="@drawable/selector_main_revert"
-                    android:gravity="center"
-                    android:padding="@dimen/space_normal"
-                    android:text="@string/login"
-                    android:textAllCaps="true"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/font_normal"
-                    android:textStyle="bold" />
             </LinearLayout>
+        </ScrollView>
+    </com.dnu.loi.smartrm.custom.StatusLayout>
 
 
-        </LinearLayout>
-    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

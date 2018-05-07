@@ -1,9 +1,9 @@
 package com.dnu.loi.smartrm.dl.order;
 
 import com.dnu.loi.smartrm.database.DalException;
-import com.dnu.loi.smartrm.obj.Dishes;
-import com.dnu.loi.smartrm.obj.DishesType;
-import com.dnu.loi.smartrm.obj.Order;
+import com.dnu.loi.smartrm.entity.Dishes;
+import com.dnu.loi.smartrm.entity.DishesType;
+import com.dnu.loi.smartrm.entity.Order;
 
 import java.util.List;
 

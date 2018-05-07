@@ -1,8 +1,9 @@
 package com.dnu.loi.smartrm.dl.tablemap;
 
 import com.dnu.loi.smartrm.database.DalException;
-import com.dnu.loi.smartrm.obj.Floor;
-import com.dnu.loi.smartrm.obj.Table;
+import com.dnu.loi.smartrm.entity.Floor;
+import com.dnu.loi.smartrm.entity.Order;
+import com.dnu.loi.smartrm.entity.Table;
 
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface ITableMapDL {
     List<Table> getTablesByFloorID(Floor floor) throws DalException;
 
     List<Table> getTablesSelected() throws  DalException;
+
+    Order getOrderFromTable(Table table) throws DalException;
 }

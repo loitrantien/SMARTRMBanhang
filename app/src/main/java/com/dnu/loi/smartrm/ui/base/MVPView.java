@@ -13,14 +13,14 @@ public interface MVPView {
      *
      * Created by loi on 4/7/2018
      */
-    void showProgressDialog();
+    void showLoading();
 
     /**
      * Phương thức ẩn thanh loading
      *
      * Created by loi on 4/7/2018
      */
-    void hideProgressDialog();
+    void hideLoading();
 
     /**
      * Phương thức đưa ra thông báo lỗi khi không có mạng

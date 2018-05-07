@@ -19,6 +19,11 @@ public interface IDAL {
     <DbObject> List<DbObject> getAll(Dal.ICustomColumnData paramICustomColumnData, Class<DbObject> mClass)
             throws DalException;
 
+    <DbObject> DbObject firstOrDefault(String paramString, Class<DbObject> mClass)
+            throws DalException;
+    <DbObject> DbObject firstOrDefault(String paramString, Dal.ICustomColumnData paramICustomColumnData, Class<DbObject> mClass)
+            throws DalException;
+
     <DbObject> List<DbObject> query(String paramString, Class<DbObject> mClass)
             throws DalException;
 
@@ -27,7 +32,11 @@ public interface IDAL {
 
     <DbObject> long save(DbObject paramDbObject, Class<DbObject> mClass)
             throws DalException;
+    <DbObject> long saveWithOnConflict(DbObject paramDbObject, Class<DbObject> mClass) throws DalException;
 
     <DbObject> int update(DbObject paramDbObject, Class<DbObject> mClass)
+            throws DalException;
+
+    <DbObject> boolean contain(DbObject paramDbObject, Class<DbObject> mClass)
             throws DalException;
 }

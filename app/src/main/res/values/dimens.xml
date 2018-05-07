@@ -31,4 +31,5 @@
     <dimen name="view_size_15dp">15dp</dimen>
     <dimen name="font_30">30sp</dimen>
     <dimen name="space_40">40dp</dimen>
+    <dimen name="view_size_150dp">150dp</dimen>
 </resources>

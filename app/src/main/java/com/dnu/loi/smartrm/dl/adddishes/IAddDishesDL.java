@@ -1,8 +1,8 @@
 package com.dnu.loi.smartrm.dl.adddishes;
 
 import com.dnu.loi.smartrm.database.DalException;
-import com.dnu.loi.smartrm.obj.Dishes;
-import com.dnu.loi.smartrm.obj.DishesType;
+import com.dnu.loi.smartrm.entity.Dishes;
+import com.dnu.loi.smartrm.entity.DishesType;
 import com.dnu.loi.smartrm.ui.base.IBaseBL;
 
 import java.util.List;

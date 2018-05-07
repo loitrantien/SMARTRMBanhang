@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context="com.dnu.loi.smartrm.ui.adddishes.AddDishesDialog">
+    tools:context=".ui.normal.adddishes.AddDishesDialog">
 
     <LinearLayout
         android:layout_width="match_parent"

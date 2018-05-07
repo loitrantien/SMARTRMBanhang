@@ -1,16 +1,12 @@
 package com.dnu.loi.smartrm.bl.order;
 
-import com.dnu.loi.smartrm.R;
 import com.dnu.loi.smartrm.common.ConstHelper;
 import com.dnu.loi.smartrm.database.DalException;
 import com.dnu.loi.smartrm.dl.order.IOrderDL;
-import com.dnu.loi.smartrm.obj.Dishes;
-import com.dnu.loi.smartrm.obj.DishesType;
-import com.dnu.loi.smartrm.obj.Order;
-import com.dnu.loi.smartrm.ui.base.IBaseBL;
-import com.dnu.loi.smartrm.utils.UIHelper;
+import com.dnu.loi.smartrm.entity.Dishes;
+import com.dnu.loi.smartrm.entity.DishesType;
+import com.dnu.loi.smartrm.entity.Order;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +27,7 @@ public class OrderBL implements IOrderBL {
     @Override
     public void getDishesListByType(DishesType dishesType, onDataLoaded<List<Dishes>> listener) {
         new Thread(() -> {
-            List<Dishes> dishesList = null;
+            List<Dishes> dishesList;
             try {
                 dishesList = dl.getDishesListByType(dishesType);
                 if (dishesList == null)
@@ -51,13 +47,7 @@ public class OrderBL implements IOrderBL {
                 if (temp == null) {
                     listener.onFailed();
                 } else {
-                    List<DishesType> dishesTypes = new ArrayList<>();
-                    DishesType type = new DishesType();
-                    type.setId(ConstHelper.GET_ALL_VALUE);
-                    type.setName(UIHelper.getString(R.string.all));
-                    dishesTypes.add(type);
-                    dishesTypes.addAll(temp);
-                    listener.onResponse(dishesTypes);
+                    listener.onResponse(temp);
                 }
             } catch (DalException e) {
                 listener.onException(e);

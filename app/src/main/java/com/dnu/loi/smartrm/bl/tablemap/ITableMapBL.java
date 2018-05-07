@@ -1,7 +1,8 @@
 package com.dnu.loi.smartrm.bl.tablemap;
 
-import com.dnu.loi.smartrm.obj.Floor;
-import com.dnu.loi.smartrm.obj.Table;
+import com.dnu.loi.smartrm.entity.Floor;
+import com.dnu.loi.smartrm.entity.Order;
+import com.dnu.loi.smartrm.entity.Table;
 import com.dnu.loi.smartrm.ui.base.IBaseBL;
 
 import java.util.List;
@@ -32,4 +33,5 @@ public interface ITableMapBL extends IBaseBL {
      */
     void loadTablesByFloor(Floor floor,onDataLoaded<List<Table>> listener);
 
+    void getOrderFromTable(Table table,onDataLoaded<Order> listener);
 }

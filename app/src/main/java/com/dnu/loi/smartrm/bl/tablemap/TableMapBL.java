@@ -1,8 +1,9 @@
 package com.dnu.loi.smartrm.bl.tablemap;
 
 import com.dnu.loi.smartrm.dl.tablemap.ITableMapDL;
-import com.dnu.loi.smartrm.obj.Floor;
-import com.dnu.loi.smartrm.obj.Table;
+import com.dnu.loi.smartrm.entity.Floor;
+import com.dnu.loi.smartrm.entity.Order;
+import com.dnu.loi.smartrm.entity.Table;
 
 import java.util.List;
 
@@ -73,4 +74,24 @@ public class TableMapBL implements ITableMapBL {
             }
         }).start();
     }
+
+    @Override
+    public void getOrderFromTable(Table table,onDataLoaded<Order> listener) {
+        new Thread(() -> {
+            try {
+                Order order = dl.getOrderFromTable(table);
+
+                if (order == null)
+                    listener.onFailed();
+                else
+                    listener.onResponse(order);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                listener.onException(e);
+            }
+        }).start();
+    }
+
+
 }

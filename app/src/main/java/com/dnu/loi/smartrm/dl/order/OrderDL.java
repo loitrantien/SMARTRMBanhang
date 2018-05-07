@@ -1,19 +1,13 @@
 package com.dnu.loi.smartrm.dl.order;
 
-import com.dnu.loi.smartrm.R;
 import com.dnu.loi.smartrm.common.ConstHelper;
-import com.dnu.loi.smartrm.common.OrderMode;
 import com.dnu.loi.smartrm.database.Dal;
 import com.dnu.loi.smartrm.database.DalException;
-import com.dnu.loi.smartrm.database.entity.OrderDb;
-import com.dnu.loi.smartrm.obj.Dishes;
-import com.dnu.loi.smartrm.obj.DishesType;
-import com.dnu.loi.smartrm.obj.Order;
-import com.dnu.loi.smartrm.obj.OrderDetail;
-import com.dnu.loi.smartrm.ui.order.OrderActivity;
-import com.dnu.loi.smartrm.utils.UIHelper;
+import com.dnu.loi.smartrm.entity.Dishes;
+import com.dnu.loi.smartrm.entity.DishesType;
+import com.dnu.loi.smartrm.entity.Order;
+import com.dnu.loi.smartrm.entity.OrderDetail;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,13 +22,10 @@ public class OrderDL implements IOrderDL {
     @Override
     public int saveOrder(Order order) throws DalException {
         long result;
-        if (OrderActivity.MODE == OrderMode.ADD_MODE)
-            result = Dal.getInstance().save(order.getDbObject(), OrderDb.class);
-        else
-            result = Dal.getInstance().update(order.getDbObject(), OrderDb.class);
+            result = Dal.getInstance().saveWithOnConflict(order, Order.class);
 
-        for (OrderDetail detail : order.getDetailList()) {
-            result += Dal.getInstance().save(detail, OrderDetail.class);
+        for (OrderDetail detail : order.getDetails()) {
+            result += Dal.getInstance().saveWithOnConflict(detail, OrderDetail.class);
         }
 
 
@@ -48,9 +39,9 @@ public class OrderDL implements IOrderDL {
 
     @Override
     public List<Dishes> getDishesListByType(DishesType dishesType) throws DalException {
-        if (dishesType.getId() == ConstHelper.GET_ALL_VALUE) {
+        if (dishesType.getId().equals(ConstHelper.GET_ALL_VALUE)) {
             return Dal.getInstance().getAll(Dishes.class);
-        }
-        return Dal.getInstance().query("select * from products where id_type = '" + dishesType.getId() + "'", Dishes.class);
+        } else
+            return Dal.getInstance().query("select * from 'tbl_dishes' where type_id = '" + dishesType.getId() + "'", Dishes.class);
     }
 }

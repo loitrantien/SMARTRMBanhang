@@ -2,11 +2,12 @@ package com.dnu.loi.smartrm.database;
 
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+
+import com.dnu.loi.smartrm.common.MyApplication;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -28,13 +29,10 @@ public class Dal implements IDAL {
         }
     }
 
-    public static void newInstance(Context context) {
+    public synchronized static IDAL getInstance() {
         if (REPOSITORY == null) {
-            REPOSITORY = new Dal(MySQLiteDatabase.getInstance(context));
+            REPOSITORY = new Dal(MySQLiteDatabase.getInstance(MyApplication.getInstance().getApplicationContext()));
         }
-    }
-
-    public static IDAL getInstance() {
         return REPOSITORY;
     }
 
@@ -220,6 +218,87 @@ public class Dal implements IDAL {
         return dbObjectList;
     }
 
+    @Override
+    public <DbObject> DbObject firstOrDefault(String query, Class<DbObject> mClass) throws DalException {
+        if (mClass == null) {
+            throw new DalException("không thể lấy các bản ghi từ database vì mClass = null");
+        }
+        List<DbObject> dbObjectList = new ArrayList<>();
+
+        Cursor cursor = this.mSqLiteDatabase.rawQuery(query, null);
+
+        Field[] fields = mClass.getDeclaredFields();
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            do {
+                try {
+                    DbObject dbObject = mClass.newInstance();
+
+                    for (Field field : fields) {
+                        field.setAccessible(true);
+                        DatabaseColumn column = field.getAnnotation(DatabaseColumn.class);
+                        if (column != null)
+                            field.set(dbObject, getDataFromCursor(field, cursor, column));
+                    }
+                    dbObjectList.add(dbObject);
+
+                } catch (Exception e) {
+                    //todo
+                }
+
+
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return dbObjectList.size() > 0 ? dbObjectList.get(0) : null;
+    }
+
+    @Override
+    public <DbObject> DbObject firstOrDefault(String query, ICustomColumnData customColumnData, Class<DbObject> mClass) throws DalException {
+        if (mClass == null) {
+            throw new DalException("không thể lấy các bản ghi từ database vì mClass = null");
+        }
+        List<DbObject> dbObjectList = new ArrayList<>();
+
+        Cursor cursor = this.mSqLiteDatabase.rawQuery(query, null);
+
+        Field[] fields = mClass.getDeclaredFields();
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            do {
+                try {
+                    DbObject dbObject = mClass.newInstance();
+
+                    for (Field field : fields) {
+                        field.setAccessible(true);
+                        DatabaseColumn column = field.getAnnotation(DatabaseColumn.class);
+                        if (column != null) {
+                            if (column.isEnableCustom()) {
+                                field.set(dbObject, customColumnData.doCustom(
+                                        getStringFromCursor(cursor, column),
+                                        column.classCustom() != Object.class ? column.classCustom() : field.getType())
+                                );
+                                open(false);
+                            } else
+                                field.set(dbObject, getDataFromCursor(field, cursor, column));
+
+                        }
+                    }
+                    dbObjectList.add(dbObject);
+
+                } catch (Exception e) {
+                    //todo
+                }
+
+
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return dbObjectList.size() > 0 ? dbObjectList.get(0) : null;
+    }
+
     public <DbObject> List<DbObject> query(String query, Class<DbObject> mClass) throws DalException {
         if (mClass == null) {
             throw new DalException("không thể lấy các bản ghi từ database vì mClass = null");
@@ -320,7 +399,10 @@ public class Dal implements IDAL {
                         }
                         if (column.isEnableCustom())
                             continue;
-                        contentValue.put(column.columnName(), field.get(paramDbObject).toString());
+                        if (field.getType().isAssignableFrom(boolean.class) || field.getType().isAssignableFrom(Boolean.class))
+                            contentValue.put(column.columnName(), Boolean.valueOf(field.get(paramDbObject).toString()) ? 1 : 0);
+                        else
+                            contentValue.put(column.columnName(), field.get(paramDbObject).toString());
                     }
                 } catch (Exception e) {
                     //todo
@@ -334,6 +416,49 @@ public class Dal implements IDAL {
             result = contentValue.size() == 0 ? -1 : mSqLiteDatabase.insert("'" + databaseTable.TableName() + "'", null, contentValue);
         } else {
             result = contentValue.size() == 0 ? -1 : mSqLiteDatabase.insert("'" + mClass.getSimpleName() + "'", null, contentValue);
+        }
+
+        return result;
+    }
+
+    @Override
+    public <DbObject> long saveWithOnConflict(DbObject paramDbObject, Class<DbObject> mClass) throws DalException {
+
+        DatabaseTable databaseTable = mClass.getAnnotation(DatabaseTable.class);
+
+        ContentValues contentValue = new ContentValues();
+
+        Field[] fields = mClass.getDeclaredFields();
+
+        if (fields != null) {
+            for (Field field : fields) {
+                try {
+                    field.setAccessible(true);
+                    DatabaseColumn column = field.getAnnotation(DatabaseColumn.class);
+
+                    if (column != null) {
+                        if (column.hasAutoIncrement()) {
+                            continue;
+                        }
+                        if (column.isEnableCustom())
+                            continue;
+                        if (field.getType().isAssignableFrom(boolean.class) || field.getType().isAssignableFrom(Boolean.class))
+                            contentValue.put(column.columnName(), Boolean.valueOf(field.get(paramDbObject).toString()) ? 1 : 0);
+                        else
+                            contentValue.put(column.columnName(), field.get(paramDbObject).toString());
+                    }
+                } catch (Exception e) {
+                    //todo
+                }
+
+            }
+        }
+
+        long result;
+        if (databaseTable != null) {
+            result = contentValue.size() == 0 ? -1 : mSqLiteDatabase.insertWithOnConflict("'" + databaseTable.TableName() + "'", null, contentValue, SQLiteDatabase.CONFLICT_REPLACE);
+        } else {
+            result = contentValue.size() == 0 ? -1 : mSqLiteDatabase.insertWithOnConflict("'" + mClass.getSimpleName() + "'", null, contentValue, SQLiteDatabase.CONFLICT_REPLACE);
         }
 
         return result;
@@ -368,8 +493,10 @@ public class Dal implements IDAL {
 
                         if (column.isEnableCustom())
                             continue;
-
-                        contentValue.put(column.columnName(), field.get(paramDbObject).toString());
+                        if (field.getType().isAssignableFrom(boolean.class) || field.getType().isAssignableFrom(Boolean.class))
+                            contentValue.put(column.columnName(), Boolean.valueOf(field.get(paramDbObject).toString()) ? 1 : 0);
+                        else
+                            contentValue.put(column.columnName(), field.get(paramDbObject).toString());
                     }
                 } catch (Exception e) {
                     //todo
@@ -391,6 +518,45 @@ public class Dal implements IDAL {
 
         } else {
             result = contentValue.size() == 0 ? -1 : mSqLiteDatabase.update(mClass.getSimpleName(), contentValue, whereClause, whereArgsArray);
+        }
+        return result;
+    }
+
+    @Override
+    public <DbObject> boolean contain(DbObject paramDbObject, Class<DbObject> mClass) throws DalException {
+        DatabaseTable databaseTable = mClass.getAnnotation(DatabaseTable.class);
+
+        Field[] fields = mClass.getDeclaredFields();
+
+        String whereClause = "";
+
+        if (fields != null) {
+            for (Field field : fields) {
+                try {
+                    field.setAccessible(true);
+                    DatabaseColumn column = field.getAnnotation(DatabaseColumn.class);
+
+                    if (column != null) {
+                        if (column.isPrimaryKey()) {
+                            whereClause = whereClause.isEmpty()
+                                    ? column.columnName() + " = '" + field.get(paramDbObject).toString() + "'"
+                                    : whereClause + " AND " + column.columnName() + " = '" + field.get(paramDbObject).toString() + "'";
+                        }
+                    }
+                } catch (Exception e) {
+                    //todo
+                }
+
+            }
+        }
+
+        boolean result;
+
+        if (databaseTable != null) {
+            result = query("SELECT * FROM " + databaseTable.TableName() + " WHERE " + whereClause, mClass).size() > 0;
+
+        } else {
+            result = query("SELECT * FROM " + mClass.getSimpleName() + " WHERE " + whereClause, mClass).size() > 0;
         }
         return result;
     }

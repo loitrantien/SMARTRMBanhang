@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/colorGray"
-    tools:context="com.dnu.loi.smartrm.ui.tablemap.TableMapFragment">
+    tools:context=".ui.normal.tablemap.TableMapFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:gravity="center_vertical"
             android:text="@string/title_map"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/font_huge"
+            android:textSize="@dimen/font_large"
             android:textStyle="bold" />
     </LinearLayout>
 

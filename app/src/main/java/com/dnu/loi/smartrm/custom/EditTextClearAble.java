@@ -80,7 +80,7 @@ public class EditTextClearAble extends LinearLayout {
 
         root.setOnClickListener((view) -> etContent.requestFocus());
 
-        etContent.setOnFocusChangeListener((View view, boolean b) -> ivClear.setVisibility(etContent.getText().length() > 0 &&b ? VISIBLE : INVISIBLE));
+        etContent.setOnFocusChangeListener((View view, boolean b) -> ivClear.setVisibility(etContent.getText().length() > 0 && b ? VISIBLE : INVISIBLE));
 
         etContent.addTextChangedListener(new TextWatcher() {
             @Override
@@ -102,31 +102,35 @@ public class EditTextClearAble extends LinearLayout {
         ivClear.setOnClickListener((view -> etContent.setText("")));
     }
 
-    public String getText(){
+    public String getText() {
         return etContent.getText().toString();
     }
 
-    public boolean doRequestFocus(){
+    public boolean doRequestFocus() {
         return etContent.requestFocus();
     }
 
-    public void setTextSize(float size){
-        etContent.setTextSize(TypedValue.COMPLEX_UNIT_SP,size);
+    public void setTextSize(float size) {
+        etContent.setTextSize(TypedValue.COMPLEX_UNIT_SP, size);
     }
 
-    public void setHint(String hint){
+    public void setHint(String hint) {
         etContent.setHint(hint);
     }
 
-    public void addTextChangedListener(TextWatcher textWatcher){
+    public void addTextChangedListener(TextWatcher textWatcher) {
         etContent.addTextChangedListener(textWatcher);
     }
 
-    public void setInputType(int type){
+    public void setInputType(int type) {
         etContent.setInputType(type);
     }
 
-    public void setHint(int hint){
+    public void setHint(int hint) {
         etContent.setHint(hint);
+    }
+
+    public boolean isEmpty() {
+        return etContent.getText() == null || etContent.getText().toString().isEmpty();
     }
 }

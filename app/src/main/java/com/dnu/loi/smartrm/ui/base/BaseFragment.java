@@ -2,6 +2,7 @@ package com.dnu.loi.smartrm.ui.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -73,6 +74,13 @@ public abstract class BaseFragment extends Fragment {
 
     protected void runOnUiThread(Runnable action){
         getActivity().runOnUiThread(action);
+    }
+
+    protected <T extends View> T findViewById(@IdRes int id) {
+        if (getView() != null) {
+            return getView().findViewById(id);
+        }
+        return null;
     }
 
 }

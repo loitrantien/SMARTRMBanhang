@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.dnu.loi.smartrm.ui.ordermanage.OrderManageFragment">
+    tools:context=".ui.normal.ordermanage.OrderManageFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:gravity="center_vertical"
             android:text="@string/title_order"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/font_huge"
+            android:textSize="@dimen/font_large"
             android:textStyle="bold" />
     </LinearLayout>
     <android.support.constraint.ConstraintLayout

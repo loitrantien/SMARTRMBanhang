@@ -1,9 +1,7 @@
 package com.dnu.loi.smartrm.common;
 
 import android.app.Application;
-
-import com.dnu.loi.smartrm.database.Dal;
-import com.dnu.loi.smartrm.database.DalException;
+import com.dnu.loi.smartrm.pref.ApplicationCache;
 import com.dnu.loi.smartrm.utils.DataBaseHelper;
 
 /**
@@ -24,6 +22,8 @@ public class MyApplication extends Application {
         super.onCreate();
         instance = this;
         DataBaseHelper.copyAssetToDatabase();
-        Dal.newInstance(getApplicationContext());
+        if (!ApplicationCache.getInstance().contains(ConstHelper.TABLES_SYNC)) {
+            ApplicationCache.getInstance().putString(ConstHelper.TABLES_SYNC, ConstHelper.TABLES_SYNC_DATA);
+        }
     }
 }

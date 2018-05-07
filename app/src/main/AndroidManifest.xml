@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.login.LoginActivity">
+        <activity android:name=".ui.normal.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,12 +21,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.normal.main.MainActivity"
             android:label="@string/title_activity_main" />
-        <activity android:name=".ui.bill.BillActivity"
+        <activity android:name=".ui.normal.bill.PayActivity"
             android:label="@string/title_activity_bill"
             />
-        <activity android:name=".ui.order.OrderActivity"
+        <activity android:name=".ui.normal.order.OrderActivity"
             android:label="@string/title_activity_order"
             />
     </application>

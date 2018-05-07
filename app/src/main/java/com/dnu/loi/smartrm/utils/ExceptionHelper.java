@@ -11,6 +11,6 @@ import android.util.Log;
 public class ExceptionHelper {
 
     public static void handlerException(String TAG, Exception e) {
-        Log.e(TAG, e.getMessage());
+        Log.e(TAG, e.getMessage()+"");
     }
 }

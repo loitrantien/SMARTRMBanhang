@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.dnu.loi.smartrm.ui.order.OrderFragment">
+    tools:context=".ui.normal.order.OrderFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -96,34 +96,33 @@
             <ImageView
                 android:layout_width="@dimen/view_size_30dp"
                 android:layout_height="@dimen/view_size_30dp"
-                android:src="@drawable/ic_customer_blue"
                 android:padding="@dimen/space_small"
-                />
+                android:src="@drawable/ic_customer_blue" />
 
             <TextView
-                android:textColor="@color/colorBlack"
-                android:gravity="center"
                 android:id="@+id/tvPeopleNum"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/view_size_30dp"
                 android:background="@drawable/sl_white_gray_radius_3dp"
-                android:minWidth="@dimen/view_size_30dp" />
+                android:gravity="center"
+                android:text="0"
+                android:minWidth="@dimen/view_size_30dp"
+                android:textColor="@color/colorBlack" />
 
             <ImageView
                 android:layout_width="@dimen/view_size_30dp"
                 android:layout_height="@dimen/view_size_30dp"
-                android:src="@drawable/ic_table_blue"
                 android:padding="@dimen/space_small"
-                />
+                android:src="@drawable/ic_table_blue" />
 
             <TextView
-                android:gravity="center"
-                android:textColor="@color/colorBlack"
                 android:id="@+id/tvTableNum"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/view_size_30dp"
                 android:background="@drawable/sl_white_gray_radius_3dp"
-                android:minWidth="@dimen/view_size_30dp" />
+                android:gravity="center"
+                android:minWidth="@dimen/view_size_30dp"
+                android:textColor="@color/colorBlack" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -139,10 +138,10 @@
                 android:id="@+id/tvTotal"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/space_small"
                 android:layout_weight="1"
                 android:gravity="center_vertical|right"
                 android:text="0"
-                android:layout_marginRight="@dimen/space_small"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/font_normal"
                 android:textStyle="bold" />

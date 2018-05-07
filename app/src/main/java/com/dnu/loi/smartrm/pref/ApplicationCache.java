@@ -15,8 +15,8 @@ import com.dnu.loi.smartrm.common.MyApplication;
 public class ApplicationCache {
     private static ApplicationCache cache;
     private final String PREF_NAME = "SmartRM_Cached";
-    private SharedPreferences.Editor editor = this._sharedPreferences.edit();
     private SharedPreferences _sharedPreferences = MyApplication.getInstance().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+    private SharedPreferences.Editor editor = this._sharedPreferences.edit();
 
     public static ApplicationCache getInstance() {
         if (cache == null) {
